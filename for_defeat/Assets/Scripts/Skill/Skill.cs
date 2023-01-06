@@ -9,6 +9,7 @@ public abstract class Skill : MonoBehaviour
     //스킬 이름
     [SerializeField] protected string skillname;
     public GameObject origin;
+    public GameObject target;
     //스킬의 범위 적용 형식 ex) 박스, 원형, 부채꼴...
     public enum AttackType
     {

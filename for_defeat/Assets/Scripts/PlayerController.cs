@@ -78,6 +78,4 @@ public class PlayerController : MonoBehaviour
     {
         //do something
     }
-
-    
 }

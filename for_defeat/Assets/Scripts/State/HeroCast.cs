@@ -27,6 +27,7 @@ public class HeroCast : IState
 
     private IEnumerator ECheckDone()
     {
+        hero.skillList[0].target = GameManager.Instance.player.gameObject;
         yield return hero.skillList[0].StartCoroutine(hero.skillList[0].OnSkillActive());
         hero.UpdateState(HeroBehaviour.HeroState.Move);
     }

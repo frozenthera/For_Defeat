@@ -7,7 +7,9 @@ public class HeroSlash : Skill
     public GameObject SlashObject;
     public override IEnumerator _OnSkillActive()
     {
-        Instantiate(SlashObject, origin.transform.position, Quaternion.identity);
+        GameObject go = Instantiate(SlashObject, origin.transform.position, Quaternion.identity);
+        go.GetComponent<SlashObject>().origin = origin;
+        go.GetComponent<SlashObject>().target = target;
         yield return null;
     }
 
