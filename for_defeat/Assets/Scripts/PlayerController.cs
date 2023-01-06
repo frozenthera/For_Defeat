@@ -16,12 +16,10 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float maxAngerGauge;
     //현재 분노게이지량
     [SerializeField] private float curAngerGauge;
-    private Camera mainCamera;
     private Vector3 mousePosition;
     private Vector3 targetPosition;
     private void Start()
     {
-        mainCamera = GameObject.Find("Main Camera").GetComponent<Camera>();
         targetPosition = transform.position;
     }
 
@@ -30,11 +28,8 @@ public class PlayerController : MonoBehaviour
         //Input에 따른 이동
         if(Input.GetMouseButtonDown(1))
         {
-            mousePosition = Input.mousePosition;
-            mousePosition.z = mainCamera.farClipPlane;
-            targetPosition = mainCamera.ScreenToWorldPoint(mousePosition);
-            targetPosition.y = transform.position.y;
-            Debug.Log(targetPosition);
+            targetPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            targetPosition.z = transform.position.z;
         }
         transform.position += speed * (targetPosition - transform.position).normalized * Time.deltaTime;
     }
