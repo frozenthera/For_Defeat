@@ -61,6 +61,10 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float RCoolDown;
     private float curRCoolDown;
 
+    private bool isFlashActive = true;
+    [SerializeField] private float FlashCoolDown;
+    private float curFlashCoolDown;
+
     public StateMachine stateMachine;
     private Dictionary<PlayerState, IState> dicState = new Dictionary<PlayerState, IState>();
 
@@ -118,6 +122,11 @@ public class PlayerController : MonoBehaviour
         {
             UpdateState(PlayerState.Cast, PlayerSkill.Trap);
             StartCoroutine(ETrapCD());
+        }
+        else if(Input.GetKey(KeyCode.Space) && isFlashActive)
+        {
+            UpdateState(PlayerState.Cast, PlayerSkill.Flash);
+            StartCoroutine(EFlashCD());
         }
     }
 
@@ -186,6 +195,18 @@ public class PlayerController : MonoBehaviour
             yield return null;
         }
         isRActive = true;
+    }
+
+    private IEnumerator EFlashCD()
+    {
+        isFlashActive = false;
+        curFlashCoolDown = FlashCoolDown;
+        while(curFlashCoolDown >= 0)
+        {
+            curFlashCoolDown -= Time.deltaTime;
+            yield return null;
+        }
+        isFlashActive = true;
     }
     
 }
