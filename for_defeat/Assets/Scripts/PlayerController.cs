@@ -15,8 +15,10 @@ public class PlayerController : MonoBehaviour
     public float PlayerMoveError => moveError;
     //최대 체력
     [SerializeField] private float maxHP;
+    public float PlayerMaxHP => maxHP;
     //현재 체력
     [SerializeField] private float curHP;
+    public float PlayerCurHP => curHP;
     //최대 분노게이지량
     [SerializeField] private float maxAngerGauge;
     //현재 분노게이지량
