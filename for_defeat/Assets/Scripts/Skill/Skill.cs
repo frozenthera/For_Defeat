@@ -24,6 +24,7 @@ public abstract class Skill : MonoBehaviour
     [SerializeField] protected float BDelay;
     //스킬 후딜레이
     [SerializeField] protected float ADelay;
+    
 
     public virtual IEnumerator OnSkillActive()
     {

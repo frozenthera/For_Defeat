@@ -24,6 +24,9 @@ public class HeroBehaviour : MonoBehaviour
     private bool isSlashable;
     public bool IsSlashable => isSlashable;
     [SerializeField] private float heroSlashCD;
+
+    [SerializeField] private bool isDashable;
+    [SerializeField] private float heroDashCD;
     
     public List<Skill> skillList = new();
 
@@ -39,6 +42,7 @@ public class HeroBehaviour : MonoBehaviour
     public enum heroSKill
     {
         Slash,
+        Dash,
         Length
     }
 
@@ -61,6 +65,7 @@ public class HeroBehaviour : MonoBehaviour
         stateMachine = new StateMachine(dicState[HeroState.Move]);
 
         StartCoroutine(ESlashCD());
+        StartCoroutine(EDashCD());
 
         foreach(var skill in skillList) skill.origin = gameObject;
 
@@ -71,8 +76,13 @@ public class HeroBehaviour : MonoBehaviour
     {
         if(isSlashable)
         {
-            UpdateState(HeroState.Cast);   
+            UpdateState(HeroState.Cast, heroSKill.Slash);   
             StartCoroutine(ESlashCD());
+        }
+        else if(isDashable)
+        {
+            UpdateState(HeroState.Cast, heroSKill.Dash);
+            StartCoroutine(EDashCD());
         }
         stateMachine.DoOperateUpdate();
     }
@@ -80,6 +90,13 @@ public class HeroBehaviour : MonoBehaviour
     public void UpdateState(HeroState type)
     {
         stateMachine.SetState(dicState[type]);
+    }
+
+    public void UpdateState(HeroState type, heroSKill skillType)
+    {
+        ((HeroCast)dicState[HeroState.Cast]).skillIdx = (int)skillType;
+        stateMachine.SetState(dicState[type]);
+
     }
 
     //용사 스킬 쿨다운 관리
@@ -95,5 +112,16 @@ public class HeroBehaviour : MonoBehaviour
         isSlashable = true;
     }
 
+    private IEnumerator EDashCD()
+    {
+        isDashable = false;
+        float curDashCD = heroDashCD;
+        while(curDashCD >= 0)
+        {
+            curDashCD -= Time.deltaTime;
+            yield return null;
+        }
+        isDashable = true;
+    }
 
 }

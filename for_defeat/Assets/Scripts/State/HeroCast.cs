@@ -5,7 +5,7 @@ using UnityEngine;
 public class HeroCast : IState
 {
     private HeroBehaviour hero;
-
+    public int skillIdx;
     public HeroCast(HeroBehaviour hero)
     {
         this.hero = hero;
@@ -13,6 +13,7 @@ public class HeroCast : IState
 
     public void OperateEnter()
     {
+        Debug.Log(skillIdx);
         GameManager.Instance.StartCoroutine(ECheckDone());
     }
 
@@ -27,8 +28,9 @@ public class HeroCast : IState
 
     private IEnumerator ECheckDone()
     {
-        hero.skillList[0].target = GameManager.Instance.player.gameObject;
-        yield return hero.skillList[0].StartCoroutine(hero.skillList[0].OnSkillActive());
+        hero.skillList[skillIdx].origin = hero.gameObject;
+        hero.skillList[skillIdx].target = GameManager.Instance.player.gameObject;
+        yield return hero.skillList[skillIdx].StartCoroutine(hero.skillList[skillIdx].OnSkillActive());
         hero.UpdateState(HeroBehaviour.HeroState.Move);
     }
 }

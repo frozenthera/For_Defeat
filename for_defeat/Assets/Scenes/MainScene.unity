@@ -217,6 +217,60 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+--- !u!1 &752905256
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 752905258}
+  - component: {fileID: 752905257}
+  m_Layer: 0
+  m_Name: HeroDash
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &752905257
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 752905256}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a6b30037af5b61a4a85920a63dc7c940, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  skillSprite: {fileID: 0}
+  skillname: 
+  origin: {fileID: 0}
+  target: {fileID: 0}
+  attackType: 0
+  skilldamage: 0
+  BDelay: 0
+  ADelay: 0
+  dashLength: 3
+  dashSec: 1
+--- !u!4 &752905258
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 752905256}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -1.0589125, y: -0.13276267, z: -1.300992}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &863215235
 GameObject:
   m_ObjectHideFlags: 0
@@ -430,10 +484,11 @@ MonoBehaviour:
   skillSprite: {fileID: 0}
   skillname: 
   origin: {fileID: 0}
+  target: {fileID: 0}
   attackType: 0
   skilldamage: 0
   BDelay: 0
-  ADelay: 0
+  ADelay: 1
   SlashObject: {fileID: 2323350918968441749, guid: a4d516174961e8b42b1ca10fb357edbe, type: 3}
 --- !u!4 &1234175422
 Transform:
@@ -547,8 +602,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c78df2775b4e4b34f81e7fa5c84d544b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 1
+  speed: 3
   accel: 0
+  moveError: 0
   maxHP: 0
   curHP: 0
   maxAngerGauge: 0
@@ -589,10 +645,13 @@ MonoBehaviour:
   heroNormalBDelay: 1
   heroNormalADelay: 1
   heroNormalAttackDamage: 10
-  heroRecogRad: 0
+  heroRecogRad: 1
   heroSlashCD: 5
+  isDashable: 0
+  heroDashCD: 1
   skillList:
   - {fileID: 1234175421}
+  - {fileID: 752905257}
 --- !u!135 &1484162650
 SphereCollider:
   m_ObjectHideFlags: 0
