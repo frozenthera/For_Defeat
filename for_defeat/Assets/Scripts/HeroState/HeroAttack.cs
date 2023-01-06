@@ -25,7 +25,10 @@ public class HeroAttack : IState
     {
         if(isAttackable)
         {
-            Debug.Log("Attack!");
+            if((GameManager.Instance.player.transform.position - hero.transform.position).magnitude <= hero.HeroRecogRad)
+            {
+                GameManager.Instance.player.GetDamage(hero.HeroNormalAttackDamage);
+            } 
             GameManager.Instance.StartCoroutine(EAttackADelay());
             isAttackable = false;
         }

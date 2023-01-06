@@ -6,8 +6,7 @@ public class HeroMove : IState
 {
     private HeroBehaviour hero;
     public PlayerController player;
-
-    [SerializeField] private float RecogRad = 1f;
+    
     public HeroMove(HeroBehaviour hero)
     {
         this.hero = hero;
@@ -27,7 +26,7 @@ public class HeroMove : IState
     public void OperateUpdate()
     {
         Vector3 moveVec = player.transform.position - hero.transform.position;
-        if(moveVec.magnitude <= RecogRad)
+        if(moveVec.magnitude <= hero.HeroRecogRad)
         {
             hero.UpdateState(HeroBehaviour.HeroState.Attack);
             return;

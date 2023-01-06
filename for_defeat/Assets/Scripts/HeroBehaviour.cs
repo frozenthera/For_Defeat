@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class HeroBehaviour : MonoBehaviour
 {
-    public Dictionary<string, Skill> heroSKillDic = new(); 
+
     private PlayerController player;
 
     [SerializeField] private float heroSpeed;
@@ -15,12 +15,31 @@ public class HeroBehaviour : MonoBehaviour
     [SerializeField] private float heroNormalADelay;
     public float HeroNormalADelay => heroNormalADelay;
 
+    [SerializeField] private float heroNormalAttackDamage;
+    public float HeroNormalAttackDamage => heroNormalAttackDamage;
+
+    [SerializeField] private float heroRecogRad;
+    public float HeroRecogRad => heroRecogRad;
+
+    private bool isSlashable;
+    public bool IsSlashable => isSlashable;
+    [SerializeField] private float heroSlashCD;
+    
+    public List<Skill> skillList = new();
+
     public enum HeroState
     {
         Idle,
         Move,
         Attack,
-        Cast
+        Cast,
+        Length
+    }
+
+    public enum heroSKill
+    {
+        Slash,
+        Length
     }
 
     public StateMachine stateMachine;
@@ -41,11 +60,20 @@ public class HeroBehaviour : MonoBehaviour
 
         stateMachine = new StateMachine(dicState[HeroState.Move]);
 
+        StartCoroutine(ESlashCD());
+
+        foreach(var skill in skillList) skill.origin = gameObject;
+
         player = GameManager.Instance.player;
     }
 
     private void Update()
     {
+        if(isSlashable)
+        {
+            UpdateState(HeroState.Cast);   
+            StartCoroutine(ESlashCD());
+        }
         stateMachine.DoOperateUpdate();
     }
 
@@ -54,12 +82,18 @@ public class HeroBehaviour : MonoBehaviour
         stateMachine.SetState(dicState[type]);
     }
 
-    //플레이어 인식과 인식 시에 어떻게 행동해야하는지
-
-    //대쉬
-
-    //용사 스킬
-
+    //용사 스킬 쿨다운 관리
+    private IEnumerator ESlashCD()
+    {
+        isSlashable = false;
+        float curSlashCD = heroSlashCD;
+        while(curSlashCD >= 0)
+        {
+            curSlashCD -= Time.deltaTime;
+            yield return null;
+        }
+        isSlashable = true;
+    }
 
 
 }

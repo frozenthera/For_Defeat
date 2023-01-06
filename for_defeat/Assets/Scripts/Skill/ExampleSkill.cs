@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ExampleSkill : Skill
 {
-    public override IEnumerator OnSkillActive()
+    public override IEnumerator _OnSkillActive()
     {
         //do something
         yield return null;

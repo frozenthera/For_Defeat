@@ -13,7 +13,7 @@ public class HeroCast : IState
 
     public void OperateEnter()
     {
-
+        GameManager.Instance.StartCoroutine(ECheckDone());
     }
 
     public void OperateExit()
@@ -23,5 +23,11 @@ public class HeroCast : IState
     public void OperateUpdate()
     {
      
+    }
+
+    private IEnumerator ECheckDone()
+    {
+        yield return hero.skillList[0].StartCoroutine(hero.skillList[0].OnSkillActive());
+        hero.UpdateState(HeroBehaviour.HeroState.Move);
     }
 }

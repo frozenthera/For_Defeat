@@ -20,6 +20,7 @@ public class PlayerController : MonoBehaviour
     private Vector3 targetPosition;
     private void Start()
     {
+        curHP = maxHP;
         targetPosition = transform.position;
     }
 
@@ -43,6 +44,18 @@ public class PlayerController : MonoBehaviour
     private void Awake()
     {
         GameManager.Instance.player = this;
+    }
+
+    public void GetDamage(float damage)
+    {
+        curHP -= damage;
+        Debug.Log(damage);
+        if(curHP <= 0) PlayerDie();
+    }
+
+    public void PlayerDie()
+    {
+        //do something
     }
 
     
