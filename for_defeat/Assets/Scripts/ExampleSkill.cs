@@ -4,9 +4,10 @@ using UnityEngine;
 
 public class ExampleSkill : Skill
 {
-    public override void OnSkillActive()
+    public override IEnumerator OnSkillActive()
     {
         //do something
+        yield return null;
     }
 
     public override float CalcDamage()

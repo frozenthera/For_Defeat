@@ -25,5 +25,10 @@ public class PlayerController : MonoBehaviour
 
     //분노 게이지 시스템
 
+    private void Awake()
+    {
+        GameManager.Instance.player = this;
+    }
+
     
 }
