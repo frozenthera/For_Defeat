@@ -5,9 +5,9 @@ using UnityEngine;
 public class PlayerWait : IState
 {
     private PlayerController player;
-    public PlayerWait()
+    public PlayerWait(PlayerController player)
     {
-        player = GameManager.Instance.player;
+        this.player = player;
     }
     public void OperateEnter()
     {

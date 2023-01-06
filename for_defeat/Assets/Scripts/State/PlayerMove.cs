@@ -7,9 +7,9 @@ public class PlayerMove : IState
     private PlayerController player;
     private Vector3 targetPosition;
     private float accelatedSpeed;
-    public PlayerMove()
+    public PlayerMove(PlayerController player)
     {
-        player = GameManager.Instance.player;
+        this.player = player;
     }
     public void OperateEnter()
     {

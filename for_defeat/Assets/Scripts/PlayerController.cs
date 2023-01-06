@@ -26,12 +26,13 @@ public class PlayerController : MonoBehaviour
     private Vector3 mousePosition;
     private Vector3 targetPosition;
     
-    [SerializeField] private List<PlayerSkill> skillList = new();
+    public List<Skill> skillList = new();
     
     public enum PlayerState
     {
         Move,
-        Wait
+        Wait,
+        Cast
     }
 
     public enum PlayerSkill
@@ -44,6 +45,22 @@ public class PlayerController : MonoBehaviour
         Length
     }
 
+    private bool isQActive = true;
+    [SerializeField] private float QCoolDown;
+    private float curQCoolDown;
+
+    private bool isWActive = true;
+    [SerializeField] private float WCoolDown;
+    private float curWCoolDown;
+
+    private bool isEActive = true;
+    [SerializeField] private float ECoolDown;
+    private float curECoolDown;
+
+    private bool isRActive = true;
+    [SerializeField] private float RCoolDown;
+    private float curRCoolDown;
+
     public StateMachine stateMachine;
     private Dictionary<PlayerState, IState> dicState = new Dictionary<PlayerState, IState>();
 
@@ -51,17 +68,20 @@ public class PlayerController : MonoBehaviour
     {
         curHP = maxHP;
         //targetPosition = transform.position;
-        IState move = new PlayerMove();
-        IState wait = new PlayerWait();
+        IState move = new PlayerMove(this);
+        IState wait = new PlayerWait(this);
+        IState cast = new PlayerCast(this);
 
         dicState.Add(PlayerState.Move, move);
         dicState.Add(PlayerState.Wait, wait);
+        dicState.Add(PlayerState.Cast, cast);
 
         stateMachine = new StateMachine(dicState[PlayerState.Wait]);
     }
 
     private void Update()
     {
+        KeyBoardInput();
         stateMachine.DoOperateUpdate();
     }
 
@@ -70,9 +90,36 @@ public class PlayerController : MonoBehaviour
         stateMachine.SetState(dicState[type]);
     }
 
-    //대쉬
-
+    public void UpdateState(PlayerState type, PlayerSkill skillType)
+    {
+        ((PlayerCast)dicState[PlayerState.Cast]).skillIdx = (int)skillType;
+        stateMachine.SetState(dicState[type]);
+    }
+    
     //Input에 따른 각 공격
+    private void KeyBoardInput()
+    {
+        if(Input.GetKey(KeyCode.Q) && isQActive)
+        {
+            UpdateState(PlayerState.Cast, PlayerSkill.Erosion);
+            StartCoroutine(EErosionCD());
+        }
+        else if(Input.GetKey(KeyCode.W) && isWActive)
+        {
+            UpdateState(PlayerState.Cast, PlayerSkill.Pizza);
+            StartCoroutine(EPizzaCD());
+        }
+        else if(Input.GetKey(KeyCode.E) && isEActive)
+        {
+            UpdateState(PlayerState.Cast, PlayerSkill.ShockWave);
+            StartCoroutine(EShockWaveCD());
+        }
+        else if(Input.GetKey(KeyCode.R) && isRActive)
+        {
+            UpdateState(PlayerState.Cast, PlayerSkill.Trap);
+            StartCoroutine(ETrapCD());
+        }
+    }
 
     //분노 게이지 시스템
 
@@ -92,4 +139,53 @@ public class PlayerController : MonoBehaviour
     {
         //do something
     }
+
+    private IEnumerator EErosionCD()
+    {
+        isQActive = false;
+        curQCoolDown = QCoolDown;
+        while(curQCoolDown >= 0)
+        {
+            curQCoolDown -= Time.deltaTime;
+            yield return null;
+        }
+        isQActive = true;
+    }
+
+    private IEnumerator EPizzaCD()
+    {
+        isWActive = false;
+        curWCoolDown = WCoolDown;
+        while(curWCoolDown >= 0)
+        {
+            curWCoolDown -= Time.deltaTime;
+            yield return null;
+        }
+        isWActive = true;
+    }
+
+    private IEnumerator EShockWaveCD()
+    {
+        isEActive = false;
+        curECoolDown = ECoolDown;
+        while(curECoolDown >= 0)
+        {
+            curECoolDown -= Time.deltaTime;
+            yield return null;
+        }
+        isEActive = true;
+    }
+
+    private IEnumerator ETrapCD()
+    {
+        isRActive = false;
+        curRCoolDown = RCoolDown;
+        while(curRCoolDown >= 0)
+        {
+            curRCoolDown -= Time.deltaTime;
+            yield return null;
+        }
+        isRActive = true;
+    }
+    
 }

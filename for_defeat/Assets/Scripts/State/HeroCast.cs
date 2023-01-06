@@ -13,8 +13,7 @@ public class HeroCast : IState
 
     public void OperateEnter()
     {
-        Debug.Log(skillIdx);
-        GameManager.Instance.StartCoroutine(ECheckDone());
+        hero.StartCoroutine(ECheckDone());
     }
 
     public void OperateExit()

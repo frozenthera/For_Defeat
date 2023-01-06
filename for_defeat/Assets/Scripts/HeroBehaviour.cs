@@ -95,7 +95,7 @@ public class HeroBehaviour : MonoBehaviour
             UpdateState(HeroState.Cast, heroSKill.Slash);   
             StartCoroutine(ESlashCD());
         }
-        else if(isDashable)
+        else if(isDashable && (GameManager.Instance.player.transform.position - transform.position).sqrMagnitude >= 25)
         {
             UpdateState(HeroState.Cast, heroSKill.Dash);
             StartCoroutine(EDashCD());
