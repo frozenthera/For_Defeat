@@ -25,8 +25,22 @@ public class HeroBehaviour : MonoBehaviour
     public bool IsSlashable => isSlashable;
     [SerializeField] private float heroSlashCD;
 
-    [SerializeField] private bool isDashable;
+    private bool isDashable;
     [SerializeField] private float heroDashCD;
+    
+    private bool isHealable;
+    [SerializeField] private float heroHealCD;
+    [SerializeField] private float healThreshold;
+
+    public bool isImmune = false;
+    private bool isImmunable;
+    [SerializeField] private float heroImmuneCD;
+    [SerializeField] private float immuneThreshold;
+
+
+    [SerializeField] private float maxHP;
+    [SerializeField] public float curHP;
+
     
     public List<Skill> skillList = new();
 
@@ -43,6 +57,8 @@ public class HeroBehaviour : MonoBehaviour
     {
         Slash,
         Dash,
+        Heal,
+        Immune,
         Length
     }
 
@@ -84,6 +100,16 @@ public class HeroBehaviour : MonoBehaviour
             UpdateState(HeroState.Cast, heroSKill.Dash);
             StartCoroutine(EDashCD());
         }
+        else if(isHealable && curHP <= healThreshold)
+        {
+            UpdateState(HeroState.Cast, heroSKill.Heal);
+            StartCoroutine(EHealCD());
+        }
+        else if(isImmunable && curHP <= immuneThreshold)
+        {
+            UpdateState(HeroState.Cast, heroSKill.Immune);
+            StartCoroutine(EImmuneCD());
+        }
         stateMachine.DoOperateUpdate();
     }
 
@@ -96,7 +122,37 @@ public class HeroBehaviour : MonoBehaviour
     {
         ((HeroCast)dicState[HeroState.Cast]).skillIdx = (int)skillType;
         stateMachine.SetState(dicState[type]);
+    }
 
+    public void GetHeal(float heal)
+    {
+        curHP += heal;
+        Mathf.Clamp(curHP, 0, maxHP);
+    }
+
+    public IEnumerator SpeedBuff(float percent, float time)
+    {
+        float BSpeed = heroSpeed;
+        heroSpeed *= (1 + percent);
+        float curTime = time;
+        while(curTime >= 0)
+        {
+            curTime -= Time.deltaTime;
+            yield return null;
+        }
+        heroSpeed = BSpeed;
+    }
+
+    public IEnumerator ImmuneBuff(float time)
+    {
+        isImmune = true;
+        float curImmuneTime = time;
+        while(curImmuneTime >= 0)
+        {
+            curImmuneTime -= Time.deltaTime;
+            yield return null;    
+        }
+        isImmune = false;
     }
 
     //용사 스킬 쿨다운 관리
@@ -124,4 +180,27 @@ public class HeroBehaviour : MonoBehaviour
         isDashable = true;
     }
 
+    private IEnumerator EHealCD()
+    {
+        isHealable = false;
+        float curHealCD = heroHealCD;
+        while(curHealCD >= 0)
+        {
+            curHealCD -= Time.deltaTime;
+            yield return null;
+        }
+        isHealable = true;
+    }
+
+    private IEnumerator EImmuneCD()
+    {
+        isImmunable = false;
+        float curImmuneCD = heroImmuneCD;
+        while(curImmuneCD >= 0)
+        {
+            curImmuneCD -= Time.deltaTime;
+            yield return null;
+        }
+        isImmunable = true;
+    }
 }

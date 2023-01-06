@@ -23,11 +23,23 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float curAngerGauge;
     private Vector3 mousePosition;
     private Vector3 targetPosition;
-
+    
+    [SerializeField] private List<PlayerSkill> skillList = new();
+    
     public enum PlayerState
     {
         Move,
         Wait
+    }
+
+    public enum PlayerSkill
+    {
+        Erosion,
+        Pizza,
+        ShockWave,
+        Trap,
+        Flash,
+        Length
     }
 
     public StateMachine stateMachine;
