@@ -48,22 +48,27 @@ public class PlayerController : MonoBehaviour
     private bool isQActive = true;
     [SerializeField] private float QCoolDown;
     private float curQCoolDown;
+    public float CurQCoolDown => curQCoolDown;
 
     private bool isWActive = true;
     [SerializeField] private float WCoolDown;
     private float curWCoolDown;
+    public float CurWCoolDown => curWCoolDown;
 
     private bool isEActive = true;
     [SerializeField] private float ECoolDown;
     private float curECoolDown;
+    public float CurECoolDown => CurECoolDown;
 
     private bool isRActive = true;
     [SerializeField] private float RCoolDown;
     private float curRCoolDown;
+    public float CurRCoolDown => curRCoolDown;
 
     private bool isFlashActive = true;
     [SerializeField] private float FlashCoolDown;
     private float curFlashCoolDown;
+    public float CurFlashCoolDown => curFlashCoolDown;
 
     public StateMachine stateMachine;
     private Dictionary<PlayerState, IState> dicState = new Dictionary<PlayerState, IState>();
