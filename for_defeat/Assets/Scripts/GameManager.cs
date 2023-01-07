@@ -5,5 +5,5 @@ using UnityEngine;
 public class GameManager : Singleton<GameManager>
 {
     public PlayerController player;
-
+    public HeroBehaviour hero;
 }

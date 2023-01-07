@@ -47,27 +47,37 @@ public class PlayerController : MonoBehaviour
     }
 
     private bool isQActive = true;
+    public bool IsQActive => isQActive;
     [SerializeField] private float QCoolDown;
+    public float MaxQCoolDown => QCoolDown;
     private float curQCoolDown;
     public float CurQCoolDown => curQCoolDown;
 
     private bool isWActive = true;
+    public bool IsWActive => isWActive;
     [SerializeField] private float WCoolDown;
+    public float MaxWCoolDown => WCoolDown;
     private float curWCoolDown;
     public float CurWCoolDown => curWCoolDown;
 
     private bool isEActive = true;
+    public bool IsEActive => isEActive;
     [SerializeField] private float ECoolDown;
+    public float MaxECoolDown => ECoolDown;
     private float curECoolDown;
-    public float CurECoolDown => CurECoolDown;
+    public float CurECoolDown => curECoolDown;
 
     private bool isRActive = true;
+    public bool IsRActive => isRActive;
     [SerializeField] private float RCoolDown;
+    public float MaxRCoolDown => RCoolDown;
     private float curRCoolDown;
     public float CurRCoolDown => curRCoolDown;
 
-    public bool isFlashActive = true;
+    private bool isFlashActive = true;
+    public bool IsFlashActive => isFlashActive;
     [SerializeField] private float FlashCoolDown;
+    public float MaxFlashCoolDown => FlashCoolDown;
     private float curFlashCoolDown;
     public float CurFlashCoolDown => curFlashCoolDown;
     public bool isFlashUsed = false;
