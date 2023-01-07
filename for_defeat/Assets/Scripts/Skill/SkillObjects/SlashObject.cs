@@ -14,6 +14,8 @@ public class SlashObject : MonoBehaviour
     private void Start()
     {
         dir = (target.transform.position - origin.transform.position).normalized;
+        float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+        transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
     }
 
     private void Update()

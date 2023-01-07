@@ -3133,7 +3133,7 @@ MonoBehaviour:
   BDelay: 0
   ADelay: 1
   isContinuable: 1
-  SlashObject: {fileID: 2895810081340397705, guid: a4d516174961e8b42b1ca10fb357edbe, type: 3}
+  SlashObject: {fileID: 403936274490277326, guid: f2f0113fd2ad24a40808df6afff3ced2, type: 3}
   angerGaugeGain: 100
 --- !u!4 &1286842565
 Transform:
