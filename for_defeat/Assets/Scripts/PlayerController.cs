@@ -242,7 +242,7 @@ public class PlayerController : UnitBehaviour
     {
         while(true)
         {
-            curAngerGauge += Time.deltaTime * 10;
+            curAngerGauge += Time.deltaTime * 50;
             curAngerGauge = Mathf.Min(curAngerGauge, maxAngerGauge);
             yield return null;
         }   
@@ -374,6 +374,6 @@ public class PlayerController : UnitBehaviour
     ViewCastInfo ViewCast(Vector3 vec)
     {
         Vector3 dir = playerShockWave.transform.TransformVector(vec).normalized;
-        return new ViewCastInfo(false, dir * viewRadius, viewRadius, 0f);
+        return new ViewCastInfo(false, dir * viewRadius * ((int)curAngerGauge/333 + 1), viewRadius, 0f);
     }
 }

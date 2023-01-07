@@ -97,7 +97,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 21c1e3c40c6fa8845a5c4ae9b2383cf3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 10
+  DOTDamge: 0
+  DOTLastTime: 0
 --- !u!60 &5976317015908541714
 PolygonCollider2D:
   m_ObjectHideFlags: 0

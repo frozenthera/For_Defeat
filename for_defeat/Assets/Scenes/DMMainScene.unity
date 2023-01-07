@@ -689,7 +689,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3705978714310614445, guid: 2e33a7b07b05b0b45aa6ed807e2118bc, type: 3}
       propertyPath: flashRadius
-      value: 3
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3705978714310614445, guid: 2e33a7b07b05b0b45aa6ed807e2118bc, type: 3}
       propertyPath: meshResolution
@@ -3395,7 +3395,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 8, y: 0}
+  m_Offset: {x: 8.27, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -3421,7 +3421,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -7.09, y: 0}
+  m_Offset: {x: -6.69, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -4954,6 +4954,7 @@ MonoBehaviour:
   damage: 5
   knuckBackSpeed: 3
   knuckBackMultiplier: 1
+  RadiusMultiplier: 0
 --- !u!1 &1949767303
 GameObject:
   m_ObjectHideFlags: 0
@@ -5481,13 +5482,12 @@ MonoBehaviour:
   origin: {fileID: 0}
   target: {fileID: 0}
   BDelay: 0
-  ADelay: 2
+  ADelay: 0.5
   isContinuable: 1
-  ErosionObject: {fileID: 5233675987532633607, guid: ba8f02e89bfcfc84d8e7f16531f5f78b, type: 3}
-  DOTLastingTime: 3
-  DOTDamagePerSec: 4
-  RadiusMultiplier: 1
-  damage: 3
+  ErosionObjectPrefab: {fileID: 5233675987532633607, guid: ba8f02e89bfcfc84d8e7f16531f5f78b, type: 3}
+  RadiusMultiplier: 0.3
+  damage: 10
+  fadeOutTime: 1
 --- !u!1 &2063307953
 GameObject:
   m_ObjectHideFlags: 0
@@ -5598,5 +5598,5 @@ MonoBehaviour:
   PizzaIndicatorPrefab: {fileID: 4720300408422774596, guid: 3995f7a9dd96ce741b30449f2f851968, type: 3}
   viewMeshFilter: {fileID: 0}
   viewRadius: 2
-  viewAngle: 0
-  SliceNum: 080000000a0000000c0000000e000000
+  DOTDamage: 1
+  DOTLastTime: 3

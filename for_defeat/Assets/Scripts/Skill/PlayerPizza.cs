@@ -10,8 +10,10 @@ public class PlayerPizza : PlayerSkill
     public MeshFilter viewMeshFilter;
     public float viewRadius;
     [Range(0, 360)]
-    public float viewAngle;
-    [SerializeField] private List<int> SliceNum = new();
+    private float viewAngle;
+    //damage per 0.5sec
+    [SerializeField] private float DOTDamage;
+    [SerializeField] private float DOTLastTime;
 
     public struct ViewCastInfo
     {
@@ -34,9 +36,10 @@ public class PlayerPizza : PlayerSkill
         GameObject indicator = Instantiate(PizzaIndicatorPrefab, origin.transform.position, Quaternion.identity);
         viewMesh = new Mesh();
         int AngerStep = (int)(GameManager.Instance.player.CurAngerGauge / 333);
-        viewAngle = 180f / SliceNum[AngerStep];
+        viewAngle = 30f;
+        viewRadius = (AngerStep+2) * viewRadius;
         Vector3 _targetPosition = Vector3.right;
-        DrawFieldOfView(_targetPosition, SliceNum[AngerStep]);
+        DrawFieldOfView(_targetPosition, 6);
 
         indicator.transform.GetChild(0).GetComponent<MeshFilter>().mesh = viewMesh;
 
@@ -49,12 +52,13 @@ public class PlayerPizza : PlayerSkill
             targetPosition = (targetPosition-origin.transform.position);
             targetPosition = new Vector3(targetPosition.x, targetPosition.y, 0f);
             targetPosition.Normalize();
-            DrawFieldOfView(targetPosition, SliceNum[AngerStep]);
+            DrawFieldOfView(targetPosition, 6);
             viewMeshFilter = go.GetComponent<MeshFilter>();
             viewMeshFilter.mesh = viewMesh;
 
             PizzaObject PO = go.GetComponent<PizzaObject>();
-            PO.damage = skilldamage;
+            PO.DOTDamge = DOTDamage;
+            PO.DOTLastTime = DOTLastTime;
 
             //Mesh to polygon collider
             Vector3[] vertices;

@@ -7,6 +7,8 @@ public class PlayerShockWave : PlayerSkill
     [SerializeField] private float damage;
     [SerializeField] private float knuckBackSpeed;
     [SerializeField] private float knuckBackMultiplier;
+    [SerializeField] private float RadiusMultiplier;
+    private float viewRadius;
     public struct ViewCastInfo
     {
         public bool hit;
@@ -27,6 +29,7 @@ public class PlayerShockWave : PlayerSkill
     private void Start()
     {
         player = GameManager.Instance.player;
+        viewRadius = player.viewRadius;
     }
     public override IEnumerator _OnSkillActive()
     {
@@ -103,6 +106,6 @@ public class PlayerShockWave : PlayerSkill
     ViewCastInfo ViewCast(Vector3 vec)
     {
         Vector3 dir = transform.TransformVector(vec).normalized;
-        return new ViewCastInfo(false, dir * player.viewRadius, player.viewRadius, 0f);
+        return new ViewCastInfo(false, dir * viewRadius * ((int)(player.CurAngerGauge/333) + 1), viewRadius, 0f);
     }
 }
