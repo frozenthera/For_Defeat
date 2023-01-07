@@ -28,9 +28,15 @@ public class PlayerFlash : Skill
             targetPosition.z = origin.transform.position.z;
             if((origin.transform.position - targetPosition).magnitude <= FlashRadius) 
             {
-                
                 yield return StartCoroutine(EBDelay());
                 origin.transform.position = targetPosition;
+                yield return StartCoroutine(_OnSkillActive());
+                yield return StartCoroutine(EADelay());
+            }
+            else
+            {
+                yield return StartCoroutine(EBDelay());
+                origin.transform.position += (targetPosition - origin.transform.position).normalized * FlashRadius;
                 yield return StartCoroutine(_OnSkillActive());
                 yield return StartCoroutine(EADelay());
             }

@@ -118,7 +118,7 @@ public class HeroBehaviour : UnitBehaviour
             UpdateState(HeroState.Cast, heroSKill.Slash);   
             StartCoroutine(ESlashCD());
         }
-        else if(isDashable && (GameManager.Instance.player.transform.position - transform.position).magnitude <= 3 * heroRecogRad)
+        else if(isDashable)
         {
             UpdateState(HeroState.Cast, heroSKill.Dash);
             StartCoroutine(EDashCD());
