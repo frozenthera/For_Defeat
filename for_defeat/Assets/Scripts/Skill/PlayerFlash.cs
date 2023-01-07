@@ -11,6 +11,7 @@ public class PlayerFlash : Skill
     private void Start()
     {
         RangeIndicator = Instantiate(RangeIndicatorPrefab, Vector3.zero, Quaternion.identity);
+        RangeIndicator.transform.localScale = Vector3.forward + new Vector3(1,1,0) * FlashRadius * 10f;
         RangeIndicator.gameObject.SetActive(false);
     }
 

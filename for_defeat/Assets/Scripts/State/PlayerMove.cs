@@ -24,7 +24,7 @@ public class PlayerMove : IState
     public void OperateUpdate()
     {
         //Input에 따른 이동
-        if(Input.GetMouseButtonDown(1))
+        if(Input.GetMouseButton(1))
         {
             accelatedSpeed = player.PlayerSpeed;
             targetPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
