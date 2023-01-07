@@ -54,6 +54,7 @@ public class HeroAttack : IState
             ADelay -= Time.deltaTime;
             yield return null;
         }
+        Debug.Log("Attack->Move");
         hero.UpdateState(HeroBehaviour.HeroState.Move);
     }
 }

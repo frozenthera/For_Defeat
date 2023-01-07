@@ -16,6 +16,7 @@ public class TrapObject : MonoBehaviour
             }
             else
             {
+                Debug.Log("Trapped!");
                 HB.UpdateState(HeroBehaviour.HeroState.Trapped, gameObject);
             }
         }
