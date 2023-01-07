@@ -119,6 +119,8 @@ public class PlayerController : UnitBehaviour
         }
     }
 
+    public int AngerStep;
+
     private void Awake()
     {
         GameManager.Instance.player = this;
@@ -152,7 +154,7 @@ public class PlayerController : UnitBehaviour
         playerAnim = GetComponent<Animator>();
 
         RangeIndicator = Instantiate(RangeIndicatorPrefab, Vector3.zero, Quaternion.identity);
-        RangeIndicator.transform.localScale = Vector3.forward + new Vector3(1,1,0) * flashRadius * 10f;
+        RangeIndicator.transform.localScale = Vector3.forward + new Vector3(1,1,0) * flashRadius * (((int)curAngerGauge/333)+1) * 10f;
         RangeIndicator.gameObject.SetActive(false);
     }
 
@@ -311,6 +313,7 @@ public class PlayerController : UnitBehaviour
         yield return new WaitUntil(()=> Input.GetMouseButtonDown(0) || Input.GetMouseButtonDown(1));
         if(Input.GetMouseButtonDown(0))
         {
+            RangeIndicator.transform.localScale = Vector3.forward + new Vector3(1,1,0) * flashRadius * (((int)curAngerGauge/333)+1) * 10f;
             UpdateState(EPlayerState.Cast, EPlayerSkill.Flash);
         }
         else if(Input.GetMouseButtonDown(1))
