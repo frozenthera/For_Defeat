@@ -46,6 +46,8 @@ public class HeroBehaviour : UnitBehaviour
     public List<Skill> skillList = new();
 
     public Animator heroAnim;
+    public GameObject heroAttackCircle;
+
     public enum HeroState
     {
         Idle,
@@ -106,7 +108,12 @@ public class HeroBehaviour : UnitBehaviour
     private void Update()
     {
         if(isInDelay) return;
-        if(isSlashable && (stateMachine.CurruentState != dicState[HeroState.Trapped]))
+        if(isImmunable && curHP <= immuneThreshold)
+        {
+            UpdateState(HeroState.Cast, heroSKill.Immune);
+            StartCoroutine(EImmuneCD());
+        }
+        else if(isSlashable && (stateMachine.CurruentState != dicState[HeroState.Trapped]))
         {
             UpdateState(HeroState.Cast, heroSKill.Slash);   
             StartCoroutine(ESlashCD());
@@ -120,11 +127,6 @@ public class HeroBehaviour : UnitBehaviour
         {
             UpdateState(HeroState.Cast, heroSKill.Heal);
             StartCoroutine(EHealCD());
-        }
-        else if(isImmunable && curHP <= immuneThreshold && (stateMachine.CurruentState != dicState[HeroState.Trapped]))
-        {
-            UpdateState(HeroState.Cast, heroSKill.Immune);
-            StartCoroutine(EImmuneCD());
         }
         stateMachine.DoOperateUpdate();
     }

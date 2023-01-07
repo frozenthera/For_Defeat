@@ -27,6 +27,7 @@ public class SlashObject : MonoBehaviour
         {
             // Debug.Log("Slash Hit!");
             PlayerController PC = coll.transform.GetComponent<PlayerController>();
+            Debug.Log("damaged by slash");
             PC.GetDamage(damage);
             Destroy(this.gameObject);
         }
