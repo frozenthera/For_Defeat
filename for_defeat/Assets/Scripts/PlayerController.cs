@@ -21,6 +21,7 @@ public class PlayerController : MonoBehaviour
     public float PlayerCurHP => curHP;
     //최대 분노게이지량
     [SerializeField] private float maxAngerGauge = 999f;
+    public float MaxAngerGauge => maxAngerGauge;
     //현재 분노게이지량
     [SerializeField] private float curAngerGauge;
     public float CurAngerGauge => curAngerGauge;
