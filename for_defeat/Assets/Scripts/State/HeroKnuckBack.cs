@@ -15,12 +15,14 @@ public class HeroKnuckBack : IState
 
     public void OperateEnter()
     {
+        hero.isInKnuckBack = true;
         leftKnuckBackTime = KnuckBackTime;
+        Debug.Log("knuckback enter : " + leftKnuckBackTime + ", " + KnuckBackDist.magnitude);
     }
 
     public void OperateExit()
     {
-
+        hero.isInKnuckBack = false;
     }
     public void OperateUpdate()
     {

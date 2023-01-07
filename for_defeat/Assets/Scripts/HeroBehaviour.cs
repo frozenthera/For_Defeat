@@ -43,10 +43,11 @@ public class HeroBehaviour : UnitBehaviour
     [SerializeField] public float curHP;
 
 
-    public List<Skill> skillList = new();
+    public List<HeroSkill> skillList = new();
 
     public Animator heroAnim;
     public GameObject heroAttackCircle;
+    public bool isInKnuckBack = false;
 
     public enum HeroState
     {
@@ -110,27 +111,30 @@ public class HeroBehaviour : UnitBehaviour
     private void Update()
     {
         if(isInDelay) return;
-        if(isImmunable && curHP <= immuneThreshold)
+        if(stateMachine.CurruentState != dicState[HeroState.KnuckBack])
         {
-            UpdateState(HeroState.Cast, heroSKill.Immune);
-            StartCoroutine(EImmuneCD());
+            if(isImmunable && curHP <= immuneThreshold)
+            {
+                UpdateState(HeroState.Cast, heroSKill.Immune);
+                StartCoroutine(EImmuneCD());
+            }
+            else if(isSlashable && (stateMachine.CurruentState != dicState[HeroState.Trapped]))
+            {
+                UpdateState(HeroState.Cast, heroSKill.Slash);   
+                StartCoroutine(ESlashCD());
+            }
+            else if(isDashable)
+            {
+                UpdateState(HeroState.Cast, heroSKill.Dash);
+                StartCoroutine(EDashCD());
+            }
+            else if(isHealable && curHP <= healThreshold && (stateMachine.CurruentState != dicState[HeroState.Trapped]))
+            {
+                UpdateState(HeroState.Cast, heroSKill.Heal);
+                StartCoroutine(EHealCD());
+            }
         }
-        else if(isSlashable && (stateMachine.CurruentState != dicState[HeroState.Trapped]))
-        {
-            UpdateState(HeroState.Cast, heroSKill.Slash);   
-            StartCoroutine(ESlashCD());
-        }
-        else if(isDashable)
-        {
-            UpdateState(HeroState.Cast, heroSKill.Dash);
-            StartCoroutine(EDashCD());
-        }
-        else if(isHealable && curHP <= healThreshold && (stateMachine.CurruentState != dicState[HeroState.Trapped]))
-        {
-            UpdateState(HeroState.Cast, heroSKill.Heal);
-            StartCoroutine(EHealCD());
-        }
-        stateMachine.DoOperateUpdate();
+        stateMachine.DoOperateUpdate();   
     }
 
     public void UpdateState(HeroState type)

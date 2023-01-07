@@ -43,9 +43,10 @@ public class PlayerShockWave : PlayerSkill
         ShockWaveObject SWO = go.GetComponent<ShockWaveObject>();
         int AngerStep = (int)(GameManager.Instance.player.CurAngerGauge / 333) + 1;
         SWO.damage = damage;
-        SWO.knuckBackVec = (GameManager.Instance.hero.transform.position - origin.transform.position).normalized * ((AngerStep+1) * player.viewRadius -  (GameManager.Instance.hero.transform.position - origin.transform.position).magnitude) * (AngerStep+1) * knuckBackMultiplier;
+        Vector3 dir = GameManager.Instance.hero.transform.position - origin.transform.position;
+        SWO.knuckBackVec = dir.normalized * Mathf.Lerp(AngerStep+1, AngerStep, dir.magnitude / ((AngerStep+1) * player.viewRadius + 0.34f) * knuckBackMultiplier);
         SWO.knuckBackSec = SWO.knuckBackVec.magnitude / knuckBackSpeed;
-        
+        Debug.Log(SWO.knuckBackVec + ", "  + SWO.knuckBackSec);
         //Mesh to polygon collider
         Vector3[] vertices;
         Vector2[] vertices2d;

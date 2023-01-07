@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HeroDash : Skill
+public class HeroDash : HeroSkill
 {
     [SerializeField] private float dashLength;
     [SerializeField] private float dashSec;
@@ -13,7 +13,10 @@ public class HeroDash : Skill
         float curDashSec = dashSec;
         while(curDashSec > 0)
         {
-            if(!isContinuable) yield break;
+            if(GameManager.Instance.hero.isInKnuckBack) 
+            {
+                yield break;
+            }
             origin.transform.position += dir.normalized * dashLength / dashSec * Time.deltaTime;
             curDashSec -= Time.deltaTime;
             yield return null;

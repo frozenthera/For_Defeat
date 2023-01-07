@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HeroSlash : Skill
+public class HeroSlash : HeroSkill
 {
     public GameObject SlashObject;
     [SerializeField] private float angerGaugeGain;

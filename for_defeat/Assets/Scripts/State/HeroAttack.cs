@@ -47,7 +47,13 @@ public class HeroAttack : IState
         float BDelay = hero.HeroNormalBDelay;
         while(BDelay >= 0)
         {
-            Debug.Log(BDelay);
+            if(hero.isInKnuckBack) 
+            {
+                hero.isInDelay = false;
+                hero.heroAttackCircle.SetActive(false);        
+                yield break;
+            }
+            // Debug.Log(BDelay);
             hero.heroAttackCircle.transform.position = hero.transform.position;
             BDelay -= Time.deltaTime;
             yield return null;
@@ -63,6 +69,7 @@ public class HeroAttack : IState
         float ADelay = hero.HeroNormalADelay;
         while(ADelay >= 0)
         {
+            if(hero.isInKnuckBack) yield break;
             ADelay -= Time.deltaTime;
             yield return null;
         }

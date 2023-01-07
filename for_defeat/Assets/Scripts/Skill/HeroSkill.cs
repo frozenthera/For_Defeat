@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class Skill : MonoBehaviour
+public abstract class HeroSkill : MonoBehaviour
 {
     //스킬 스프라이트
     [SerializeField] protected Sprite skillSprite;

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HeroImmune : Skill
+public class HeroImmune : HeroSkill
 {
     [SerializeField] private float buffTime;
     [SerializeField] private float speedBuffPercent;
