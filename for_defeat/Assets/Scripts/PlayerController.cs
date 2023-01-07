@@ -164,8 +164,9 @@ public class PlayerController : UnitBehaviour
         }
     }
 
-    public void GetDamage(float damage)
+    public void GetDamage(float damage, float angerGaugeGain)
     {
+        GainAngergauge(angerGaugeGain);
         curHP -= damage;
         Debug.Log(damage);
         if(curHP <= 0) PlayerDie();
@@ -179,6 +180,13 @@ public class PlayerController : UnitBehaviour
     public void UseAngergauge(float value)
     {
         curAngerGauge -= value;
+        if(curAngerGauge < 0) curAngerGauge = 0;
+    }
+
+    public void GainAngergauge(float value)
+    {
+        curAngerGauge += value;
+        if(curAngerGauge > maxAngerGauge) curAngerGauge = maxAngerGauge;
     }
 
     private IEnumerator EAngerGaugeAscend()

@@ -29,7 +29,7 @@ public class HeroAttack : IState
             if(coll.CompareTag("Player"))
             {
                 Debug.Log("damaged by normal attack");
-                GameManager.Instance.player.GetDamage(hero.HeroNormalAttackDamage);
+                GameManager.Instance.player.GetDamage(hero.HeroNormalAttackDamage, hero.NormalAttackGaugeGain);
             } 
             isAttackable = false;
             GameManager.Instance.StartCoroutine(EAttackADelay());

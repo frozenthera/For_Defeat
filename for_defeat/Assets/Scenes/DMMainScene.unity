@@ -2072,7 +2072,11 @@ PrefabInstance:
     - target: {fileID: 1539496954782780622, guid: 61f761adf2151284d8c061dc88fd0ebe, type: 3}
       propertyPath: heroAttackCircle
       value: 
-      objectReference: {fileID: 1287112384921342786, guid: 5c266bc715e4c704e9c906656fe218c9, type: 3}
+      objectReference: {fileID: 1388684983}
+    - target: {fileID: 1539496954782780622, guid: 61f761adf2151284d8c061dc88fd0ebe, type: 3}
+      propertyPath: normalAttckGaugeGain
+      value: 50
+      objectReference: {fileID: 0}
     - target: {fileID: 1539496954782780622, guid: 61f761adf2151284d8c061dc88fd0ebe, type: 3}
       propertyPath: skillList.Array.data[0]
       value: 
@@ -3130,6 +3134,7 @@ MonoBehaviour:
   ADelay: 1
   isContinuable: 1
   SlashObject: {fileID: 2895810081340397705, guid: a4d516174961e8b42b1ca10fb357edbe, type: 3}
+  angerGaugeGain: 100
 --- !u!4 &1286842565
 Transform:
   m_ObjectHideFlags: 0
@@ -3335,6 +3340,11 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: -20, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &1388684983 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1287112384921342786, guid: 5c266bc715e4c704e9c906656fe218c9, type: 3}
+  m_PrefabInstance: {fileID: 1005758897}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1409969113
 GameObject:
   m_ObjectHideFlags: 0

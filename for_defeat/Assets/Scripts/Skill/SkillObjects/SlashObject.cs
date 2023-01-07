@@ -7,6 +7,7 @@ public class SlashObject : MonoBehaviour
     public GameObject origin;
     public GameObject target;
     public float damage;
+    public float angerGaugeGain;
     [SerializeField] private float speed;
     private Vector3 dir;
 
@@ -28,7 +29,7 @@ public class SlashObject : MonoBehaviour
             // Debug.Log("Slash Hit!");
             PlayerController PC = coll.transform.GetComponent<PlayerController>();
             Debug.Log("damaged by slash");
-            PC.GetDamage(damage);
+            PC.GetDamage(damage, angerGaugeGain);
             Destroy(this.gameObject);
         }
     }

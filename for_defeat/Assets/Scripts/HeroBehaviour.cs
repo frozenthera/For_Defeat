@@ -69,8 +69,10 @@ public class HeroBehaviour : UnitBehaviour
     }
 
     public StateMachine stateMachine;
-
     private Dictionary<HeroState, IState> dicState = new Dictionary<HeroState, IState>();
+
+    [SerializeField] private float normalAttckGaugeGain;
+    public float NormalAttackGaugeGain => normalAttckGaugeGain;
     private void Awake()
     {
         GameManager.Instance.hero = this;
