@@ -431,7 +431,7 @@ MonoBehaviour:
   ADelay: 0
   isContinuable: 1
   RangeIndicatorPrefab: {fileID: 1785999215725809044, guid: 1ebfaebf62756c9429d77c326532fbb8, type: 3}
-  FlashRadius: 1
+  FlashRadius: 3
 --- !u!1 &184816138
 GameObject:
   m_ObjectHideFlags: 0
@@ -1005,8 +1005,8 @@ GameObject:
   - component: {fileID: 366790769}
   - component: {fileID: 366790772}
   - component: {fileID: 366790765}
-  - component: {fileID: 366790771}
   - component: {fileID: 366790770}
+  - component: {fileID: 366790773}
   m_Layer: 0
   m_Name: Hero
   m_TagString: Hero
@@ -1054,7 +1054,7 @@ Transform:
   m_GameObject: {fileID: 366790764}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -3, y: 0.44, z: -2}
-  m_LocalScale: {x: 2, y: 2, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -1081,22 +1081,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 0
---- !u!58 &366790771
-CircleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 366790764}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  serializedVersion: 2
-  m_Radius: 0.1
 --- !u!212 &366790772
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1138,8 +1122,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
-  m_Color: {r: 1, g: 0.88767976, b: 0.27044016, a: 1}
+  m_Sprite: {fileID: 21300000, guid: 78ac54ccfc655f94db4fd02fed83fd24, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -1149,6 +1133,22 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!58 &366790773
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 366790764}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.34
 --- !u!1 &429897467
 GameObject:
   m_ObjectHideFlags: 0
@@ -2949,9 +2949,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1148755879}
   - component: {fileID: 1148755878}
-  - component: {fileID: 1148755877}
-  - component: {fileID: 1148755880}
+  - component: {fileID: 1148755882}
   - component: {fileID: 1148755881}
+  - component: {fileID: 1148755880}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -2959,37 +2959,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1148755877
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1148755876}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c78df2775b4e4b34f81e7fa5c84d544b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 3
-  accel: 0
-  moveError: 0.1
-  maxHP: 100
-  curHP: 100
-  maxAngerGauge: 999
-  curAngerGauge: 0
-  skillList:
-  - {fileID: 2021970453}
-  - {fileID: 2084989406}
-  - {fileID: 1900270701}
-  - {fileID: 358846706}
-  - {fileID: 178189594}
-  QCoolDown: 4
-  WCoolDown: 4
-  ECoolDown: 4
-  RCoolDown: 4
-  FlashCoolDown: 2
-  isFlashUsed: 0
 --- !u!212 &1148755878
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -3031,12 +3000,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
+  m_Sprite: {fileID: 21300000, guid: bd691c20ef762a44292a2c99eba1717e, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 0.24, y: 0.24}
+  m_Size: {x: 1.28, y: 1.28}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -3051,41 +3020,80 @@ Transform:
   m_GameObject: {fileID: 1148755876}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 3.53, y: -0.59, z: -2}
-  m_LocalScale: {x: 2, y: 2, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!135 &1148755880
-SphereCollider:
+--- !u!58 &1148755880
+CircleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1148755876}
+  m_Enabled: 1
+  m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.1
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!54 &1148755881
-Rigidbody:
+  m_Radius: 0.54
+--- !u!50 &1148755881
+Rigidbody2D:
+  serializedVersion: 4
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1148755876}
-  serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 0
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 0.0001
+  m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_UseGravity: 0
-  m_IsKinematic: 0
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
   m_Interpolate: 0
-  m_Constraints: 0
+  m_SleepingMode: 1
   m_CollisionDetection: 1
+  m_Constraints: 0
+--- !u!114 &1148755882
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1148755876}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c78df2775b4e4b34f81e7fa5c84d544b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 2
+  accel: 0
+  moveError: 0.1
+  maxHP: 100
+  curHP: 0
+  maxAngerGauge: 999
+  curAngerGauge: 0
+  skillList:
+  - {fileID: 2021970453}
+  - {fileID: 2084989406}
+  - {fileID: 1900270701}
+  - {fileID: 358846706}
+  - {fileID: 178189594}
+  QCoolDown: 3
+  WCoolDown: 3
+  ECoolDown: 3
+  RCoolDown: 3
+  FlashCoolDown: 2
+  isFlashUsed: 0
 --- !u!1 &1218824527
 GameObject:
   m_ObjectHideFlags: 0
@@ -3466,7 +3474,7 @@ MonoBehaviour:
   BDelay: 0
   ADelay: 0
   isContinuable: 1
-  dashLength: 3
+  dashLength: 2
   dashSec: 1
 --- !u!4 &1409969115
 Transform:
