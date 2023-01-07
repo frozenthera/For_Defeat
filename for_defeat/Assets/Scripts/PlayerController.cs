@@ -20,9 +20,10 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float curHP;
     public float PlayerCurHP => curHP;
     //최대 분노게이지량
-    [SerializeField] private float maxAngerGauge;
+    [SerializeField] private float maxAngerGauge = 999f;
     //현재 분노게이지량
     [SerializeField] private float curAngerGauge;
+    public float CurAngerGauge => curAngerGauge;
     private Vector3 mousePosition;
     private Vector3 targetPosition;
     
@@ -65,18 +66,27 @@ public class PlayerController : MonoBehaviour
     private float curRCoolDown;
     public float CurRCoolDown => curRCoolDown;
 
-    private bool isFlashActive = true;
+    public bool isFlashActive = true;
     [SerializeField] private float FlashCoolDown;
     private float curFlashCoolDown;
     public float CurFlashCoolDown => curFlashCoolDown;
+    public bool isFlashUsed = false;
 
     public StateMachine stateMachine;
     private Dictionary<PlayerState, IState> dicState = new Dictionary<PlayerState, IState>();
 
+    private void Awake()
+    {
+        GameManager.Instance.player = this;
+    }
+
     private void Start()
     {
         curHP = maxHP;
-        //targetPosition = transform.position;
+        curAngerGauge = 0f;
+        
+        StartCoroutine(EAngerGaugeAscend());
+        
         IState move = new PlayerMove(this);
         IState wait = new PlayerWait(this);
         IState cast = new PlayerCast(this);
@@ -86,6 +96,8 @@ public class PlayerController : MonoBehaviour
         dicState.Add(PlayerState.Cast, cast);
 
         stateMachine = new StateMachine(dicState[PlayerState.Wait]);
+
+        foreach(var skill in skillList) skill.origin = gameObject;
     }
 
     private void Update()
@@ -131,15 +143,7 @@ public class PlayerController : MonoBehaviour
         else if(Input.GetKey(KeyCode.Space) && isFlashActive)
         {
             UpdateState(PlayerState.Cast, PlayerSkill.Flash);
-            StartCoroutine(EFlashCD());
         }
-    }
-
-    //분노 게이지 시스템
-
-    private void Awake()
-    {
-        GameManager.Instance.player = this;
     }
 
     public void GetDamage(float damage)
@@ -152,6 +156,16 @@ public class PlayerController : MonoBehaviour
     public void PlayerDie()
     {
         //do something
+    }
+
+    private IEnumerator EAngerGaugeAscend()
+    {
+        while(true)
+        {
+            curAngerGauge += Time.deltaTime;
+            curAngerGauge = Mathf.Min(curAngerGauge, maxAngerGauge);
+            yield return null;
+        }   
     }
 
     private IEnumerator EErosionCD()
@@ -202,7 +216,7 @@ public class PlayerController : MonoBehaviour
         isRActive = true;
     }
 
-    private IEnumerator EFlashCD()
+    public IEnumerator EFlashCD()
     {
         isFlashActive = false;
         curFlashCoolDown = FlashCoolDown;

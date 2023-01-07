@@ -4,11 +4,12 @@ using UnityEngine;
 
 public class PlayerTrap : Skill
 {
-    public GameObject TrapObject;
+    public GameObject TrapObjectPrefab;
 
     public override IEnumerator _OnSkillActive()
     {
-        Debug.Log("Trap!");
+        GameObject go = Instantiate(TrapObjectPrefab, origin.transform.position, Quaternion.identity);
+        go.GetComponent<TrapObject>().trapHP = (int)(origin.GetComponent<PlayerController>().CurAngerGauge / 333) + 2;
         yield return null;
     }
 

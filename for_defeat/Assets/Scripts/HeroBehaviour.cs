@@ -50,6 +50,7 @@ public class HeroBehaviour : MonoBehaviour
         Move,
         Attack,
         Cast,
+        Trapped,
         Length
     }
 
@@ -68,15 +69,19 @@ public class HeroBehaviour : MonoBehaviour
 
     private void Start()
     {
+        curHP = maxHP;
+
         IState idle = new HeroIdle(this);
         IState move = new HeroMove(this);
         IState attack = new HeroAttack(this);
         IState cast = new HeroCast(this);
+        IState trapped = new HeroTrapped(this);
 
         dicState.Add(HeroState.Idle, idle);
         dicState.Add(HeroState.Move, move);
         dicState.Add(HeroState.Attack, attack);
         dicState.Add(HeroState.Cast, cast);
+        dicState.Add(HeroState.Trapped, trapped);
 
         stateMachine = new StateMachine(dicState[HeroState.Move]);
 
@@ -124,12 +129,28 @@ public class HeroBehaviour : MonoBehaviour
         stateMachine.SetState(dicState[type]);
     }
 
+    public void UpdateState(HeroState type, GameObject obj)
+    {
+        ((HeroTrapped)dicState[HeroState.Trapped]).trapObject = obj.GetComponent<TrapObject>();
+        stateMachine.SetState(dicState[type]);
+    }
+
     public void GetHeal(float heal)
     {
         curHP += heal;
         Mathf.Clamp(curHP, 0, maxHP);
     }
 
+    public void GetDamage(float damage)
+    {
+        curHP -= damage;
+        if(curHP <= 0) HeroDie();
+    }
+
+    public void HeroDie()
+    {
+        //do something
+    }
     public IEnumerator SpeedBuff(float percent, float time)
     {
         float BSpeed = heroSpeed;

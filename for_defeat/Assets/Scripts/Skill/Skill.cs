@@ -25,6 +25,7 @@ public abstract class Skill : MonoBehaviour
     //스킬 후딜레이
     [SerializeField] protected float ADelay;
     
+    public bool isContinuable = true;
 
     public virtual IEnumerator OnSkillActive()
     {
@@ -61,6 +62,7 @@ public abstract class Skill : MonoBehaviour
         float curBDelay = BDelay;
         while(curBDelay >= 0)
         {
+            if(!isContinuable) yield break;
             curBDelay -= Time.deltaTime;
             yield return null;
         }
@@ -71,6 +73,7 @@ public abstract class Skill : MonoBehaviour
         float curADelay = ADelay;
         while(curADelay >= 0)
         {
+            if(!isContinuable) yield break;
             curADelay -= Time.deltaTime;
             yield return null;
         }

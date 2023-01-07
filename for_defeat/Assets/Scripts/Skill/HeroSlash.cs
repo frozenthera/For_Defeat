@@ -10,6 +10,7 @@ public class HeroSlash : Skill
         GameObject go = Instantiate(SlashObject, origin.transform.position, Quaternion.identity);
         go.GetComponent<SlashObject>().origin = origin;
         go.GetComponent<SlashObject>().target = target;
+        go.GetComponent<SlashObject>().damage = CalcDamage();
         yield return null;
     }
 

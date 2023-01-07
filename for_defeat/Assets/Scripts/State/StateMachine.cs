@@ -5,7 +5,6 @@ using UnityEngine;
 public class StateMachine
 {
     public IState CurruentState { get; private set; }
-
     // 생성자
     public StateMachine(IState defaultState)
     {

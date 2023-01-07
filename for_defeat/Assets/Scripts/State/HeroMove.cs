@@ -31,6 +31,7 @@ public class HeroMove : IState
             hero.UpdateState(HeroBehaviour.HeroState.Attack);
             return;
         } 
-        hero.transform.position += hero.HeroSpeed * moveVec.normalized * Time.deltaTime;
+        Vector3 temp = hero.transform.position += hero.HeroSpeed * moveVec.normalized * Time.deltaTime;
+        hero.transform.position = new Vector3(temp.x, temp.y, -2);
     }
 }

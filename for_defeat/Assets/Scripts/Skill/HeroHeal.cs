@@ -12,6 +12,7 @@ public class HeroHeal : Skill
         float leftHeal = totalHeal;
         while(leftHeal >= 0)
         {
+            if(!isContinuable) yield break;
             HB.GetHeal(healPerTick);
             leftHeal -= healPerTick;
             yield return new WaitForSeconds(.5f);
