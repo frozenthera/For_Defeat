@@ -440,6 +440,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 0}
+  hero: {fileID: 0}
 --- !u!4 &302988633
 Transform:
   m_ObjectHideFlags: 0
@@ -1017,7 +1018,6 @@ MonoBehaviour:
   WCoolDown: 4
   ECoolDown: 4
   RCoolDown: 4
-  isFlashActive: 1
   FlashCoolDown: 2
   isFlashUsed: 0
 --- !u!212 &1148755878
@@ -1516,7 +1516,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1900270699}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -1545,7 +1545,14 @@ MonoBehaviour:
   BDelay: 0
   ADelay: 0
   isContinuable: 1
-  ShockWaveObject: {fileID: 0}
+  ShockWaveObjectPrefab: {fileID: 988865814613561557, guid: 43785e6ecadc1d34bb2f49456f34df23, type: 3}
+  viewMeshFilter: {fileID: 0}
+  viewRadius: 2
+  viewAngle: 90
+  damage: 5
+  knuckBackSpeed: 3
+  knuckBackMultiplier: 1
+  meshResolution: 0.1
 --- !u!1 &1973195761
 GameObject:
   m_ObjectHideFlags: 0
@@ -1696,11 +1703,11 @@ MonoBehaviour:
   BDelay: 0
   ADelay: 0
   isContinuable: 1
-  ErosionObject: {fileID: 6073500158751104089, guid: ba8f02e89bfcfc84d8e7f16531f5f78b, type: 3}
+  ErosionObject: {fileID: 5233675987532633607, guid: ba8f02e89bfcfc84d8e7f16531f5f78b, type: 3}
   DOTLastingTime: 3
   DOTDamagePerSec: 4
-  Radius: 0
-  damage: 0
+  RadiusMultiplier: 3
+  damage: 3
 --- !u!1 &2063307953
 GameObject:
   m_ObjectHideFlags: 0

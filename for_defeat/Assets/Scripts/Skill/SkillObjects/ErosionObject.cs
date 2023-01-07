@@ -8,7 +8,6 @@ public class ErosionObject : MonoBehaviour
     public float damagePerSec;
     //장판 지속시간
     public float lastTime;
-    public float damage;
     private void Start()
     {
         StartCoroutine(ExtinguishTimer());

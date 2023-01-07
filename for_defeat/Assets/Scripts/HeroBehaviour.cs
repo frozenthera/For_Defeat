@@ -52,6 +52,7 @@ public class HeroBehaviour : MonoBehaviour
         Attack,
         Cast,
         Trapped,
+        KnuckBack,
         Length
     }
 
@@ -80,12 +81,14 @@ public class HeroBehaviour : MonoBehaviour
         IState attack = new HeroAttack(this);
         IState cast = new HeroCast(this);
         IState trapped = new HeroTrapped(this);
+        IState knuckback = new HeroKnuckBack(this);
 
         dicState.Add(HeroState.Idle, idle);
         dicState.Add(HeroState.Move, move);
         dicState.Add(HeroState.Attack, attack);
         dicState.Add(HeroState.Cast, cast);
         dicState.Add(HeroState.Trapped, trapped);
+        dicState.Add(HeroState.KnuckBack, knuckback);
 
         stateMachine = new StateMachine(dicState[HeroState.Move]);
 
@@ -136,6 +139,14 @@ public class HeroBehaviour : MonoBehaviour
     public void UpdateState(HeroState type, GameObject obj)
     {
         ((HeroTrapped)dicState[HeroState.Trapped]).trapObject = obj.GetComponent<TrapObject>();
+        stateMachine.SetState(dicState[type]);
+    }
+
+    public void UpdateState(HeroState type, Vector3 knuckBackDir, float sec)
+    {
+        HeroKnuckBack KB = ((HeroKnuckBack)dicState[HeroState.KnuckBack]);
+        KB.KnuckBackDist = knuckBackDir;
+        KB.KnuckBackTime = sec;
         stateMachine.SetState(dicState[type]);
     }
 
