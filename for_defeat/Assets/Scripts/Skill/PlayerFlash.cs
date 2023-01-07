@@ -5,6 +5,7 @@ using UnityEngine;
 public class PlayerFlash : PlayerSkill
 {   private GameObject RangeIndicator;
     private float flashRadius;
+    private float calculatedFlashRadius;
     private PlayerController player;
 
     private void Start()
@@ -16,10 +17,12 @@ public class PlayerFlash : PlayerSkill
 
     public override IEnumerator OnSkillActive(int skillIdx)
     {
+        calculatedFlashRadius = flashRadius * (((int)(player.CurAngerGauge/333))+1);
+        Debug.Log(calculatedFlashRadius);
         RangeIndicator.gameObject.SetActive(false);
         Vector3 targetPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         targetPosition.z = origin.transform.position.z;
-        if((origin.transform.position - targetPosition).magnitude <= flashRadius) 
+        if((origin.transform.position - targetPosition).magnitude <= calculatedFlashRadius) 
         {
             yield return StartCoroutine(EBDelay());
             origin.transform.position = targetPosition;
@@ -29,7 +32,7 @@ public class PlayerFlash : PlayerSkill
         else
         {
             yield return StartCoroutine(EBDelay());
-            origin.transform.position += (targetPosition - origin.transform.position).normalized * flashRadius;
+            origin.transform.position += (targetPosition - origin.transform.position).normalized * calculatedFlashRadius;
             yield return StartCoroutine(_OnSkillActive());
             yield return StartCoroutine(EADelay());
         }
