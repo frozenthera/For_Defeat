@@ -2532,8 +2532,6 @@ MonoBehaviour:
   BDelay: 0.5
   ADelay: 0.5
   isContinuable: 1
-  RangeIndicatorPrefab: {fileID: 1785999215725809044, guid: 1ebfaebf62756c9429d77c326532fbb8, type: 3}
-  FlashRadius: 3
 --- !u!1 &890172350
 GameObject:
   m_ObjectHideFlags: 0
@@ -3619,6 +3617,17 @@ MonoBehaviour:
   FlashCoolDown: 2
   isFlashUsed: 0
   playerAnim: {fileID: 0}
+  RangeIndicatorPrefab: {fileID: 1785999215725809044, guid: 1ebfaebf62756c9429d77c326532fbb8, type: 3}
+  RangeIndicator: {fileID: 0}
+  flashRadius: 3
+  ShockWaveObjectPrefab: {fileID: 988865814613561557, guid: 43785e6ecadc1d34bb2f49456f34df23, type: 3}
+  ShockWaveIndicatorPrefab: {fileID: 4720300408422774596, guid: 310da8583858c164fb731ddf83fcb93e, type: 3}
+  playerShockWave: {fileID: 1871136231}
+  indicator: {fileID: 0}
+  viewMeshFilter: {fileID: 0}
+  viewRadius: 2
+  viewAngle: 45
+  meshResolution: 0.1
 --- !u!212 &1293937765
 SpriteRenderer:
   m_ObjectHideFlags: 0

@@ -87,6 +87,37 @@ public class PlayerController : UnitBehaviour
     private Dictionary<PlayerState, IState> dicState = new Dictionary<PlayerState, IState>();
 
     public Animator playerAnim;
+
+    [SerializeField] private GameObject RangeIndicatorPrefab;
+    public GameObject RangeIndicator;
+    [SerializeField] private float flashRadius;
+    public float FlashRadius => flashRadius;
+    public GameObject ShockWaveObjectPrefab;
+    public GameObject ShockWaveIndicatorPrefab;
+    public Mesh viewMesh;
+    [SerializeField] private PlayerShockWave playerShockWave;
+    public GameObject indicator;
+    public MeshFilter viewMeshFilter;
+    public float viewRadius;
+    [Range(0, 360)]
+    public float viewAngle;
+    public float meshResolution;
+    public struct ViewCastInfo
+    {
+        public bool hit;
+        public Vector3 point;
+        public float dst;
+        public float angle;
+
+        public ViewCastInfo(bool _hit, Vector3 _point, float _dst, float _angle)
+        {
+            hit = _hit;
+            point = _point;
+            dst = _dst;
+            angle = _angle;
+        }
+    }
+
     private void Awake()
     {
         GameManager.Instance.player = this;
@@ -112,6 +143,10 @@ public class PlayerController : UnitBehaviour
         foreach(var skill in skillList) skill.origin = gameObject;
 
         playerAnim = GetComponent<Animator>();
+
+        RangeIndicator = Instantiate(RangeIndicatorPrefab, Vector3.zero, Quaternion.identity);
+        RangeIndicator.transform.localScale = Vector3.forward + new Vector3(1,1,0) * flashRadius * 10f;
+        RangeIndicator.gameObject.SetActive(false);
     }
 
     private void Update()
@@ -145,9 +180,18 @@ public class PlayerController : UnitBehaviour
             UpdateState(PlayerState.Cast, PlayerSkill.Pizza);
             StartCoroutine(EPizzaCD());
         }
-        else if(Input.GetKey(KeyCode.E) && isEActive)
+        else if(Input.GetKeyDown(KeyCode.E) && isEActive)
         {
-            UpdateState(PlayerState.Cast, PlayerSkill.ShockWave);
+            indicator = Instantiate(ShockWaveIndicatorPrefab, this.transform.position, Quaternion.identity);
+            indicator.transform.SetParent(this.transform);
+            viewMesh = new Mesh();
+            viewMesh.name = "View Mesh";
+            
+            Vector3 _targetPosition = Vector3.right;        
+            DrawFieldOfView(_targetPosition);
+
+            indicator.transform.GetChild(0).GetComponent<MeshFilter>().mesh = viewMesh;
+            StartCoroutine(ShockWaveWaiting());
         }
         else if(Input.GetKey(KeyCode.R) && isRActive)
         {
@@ -156,7 +200,10 @@ public class PlayerController : UnitBehaviour
         }
         else if(Input.GetKey(KeyCode.Space) && isFlashActive)
         {
-            UpdateState(PlayerState.Cast, PlayerSkill.Flash);
+            RangeIndicator.transform.position = transform.position;
+            RangeIndicator.transform.parent = transform;
+            RangeIndicator.gameObject.SetActive(true);
+            StartCoroutine(FlashWaiting());
         }
     }
 
@@ -242,4 +289,71 @@ public class PlayerController : UnitBehaviour
         isFlashActive = true;
     }
     
+    public IEnumerator FlashWaiting()
+    {
+        yield return new WaitUntil(()=> Input.GetMouseButtonDown(0) || Input.GetMouseButtonDown(1));
+        if(Input.GetMouseButtonDown(0))
+        {
+            UpdateState(PlayerState.Cast, PlayerSkill.Flash);
+        }
+        else if(Input.GetMouseButtonDown(1))
+        {
+            RangeIndicator.gameObject.SetActive(false);
+        }
+    }
+
+    public IEnumerator ShockWaveWaiting()
+    {
+        yield return new WaitUntil(()=> Input.GetMouseButtonDown(0) || Input.GetMouseButtonDown(1));
+        if(Input.GetMouseButtonDown(0))
+        {
+            UpdateState(PlayerState.Cast, PlayerSkill.ShockWave);
+        }
+        else if(Input.GetMouseButtonDown(1))
+        {
+            Destroy(indicator);
+        }
+        yield return null;
+    }
+
+    public void DrawFieldOfView(Vector3 targetVec)
+    {
+        int stepCount = Mathf.RoundToInt(viewAngle * meshResolution);
+        float stepAngleSize = viewAngle / stepCount;
+        List<Vector3> viewPoints = new List<Vector3>();
+
+        
+        for (int i = 0; i <= stepCount; i++)
+        {
+            Vector3 direction = Quaternion.AngleAxis(-viewAngle / 2 + stepAngleSize * i, Vector3.back) * targetVec;
+            ViewCastInfo newViewCast = ViewCast(direction);   
+            viewPoints.Add(newViewCast.point);
+        }
+
+        int vertexCount = viewPoints.Count + 1;
+        Vector3[] vertices = new Vector3[vertexCount];
+        int[] triangles = new int[(vertexCount - 2) * 3];
+        vertices[0] = Vector3.zero;
+
+        for (int i = 0; i < vertexCount - 1; i++)
+        {
+            vertices[i + 1] = playerShockWave.transform.InverseTransformPoint(viewPoints[i]);
+            if (i < vertexCount - 2)
+            {
+                triangles[i * 3] = 0;
+                triangles[i * 3 + 1] = i + 1;
+                triangles[i * 3 + 2] = i + 2;
+            }
+        }
+        viewMesh.Clear();
+        viewMesh.vertices = vertices;
+        viewMesh.triangles = triangles;
+        viewMesh.RecalculateNormals();
+    }
+
+    ViewCastInfo ViewCast(Vector3 vec)
+    {
+        Vector3 dir = playerShockWave.transform.TransformVector(vec).normalized;
+        return new ViewCastInfo(false, dir * viewRadius, viewRadius, 0f);
+    }
 }
