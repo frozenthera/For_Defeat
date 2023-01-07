@@ -7,6 +7,7 @@ public class PlayerShockWave : PlayerSkill
     [SerializeField] private float damage;
     [SerializeField] private float knuckBackSpeed;
     [SerializeField] private float knuckBackMultiplier;
+    public float KnuckBackMultiplier;
     public struct ViewCastInfo
     {
         public bool hit;

@@ -120,6 +120,9 @@ public class PlayerController : UnitBehaviour
     }
 
     public int AngerStep;
+    private float berserker_time = 0f;
+    private HeroBehaviour hero;
+    [SerializeField] PlayerErosion playerErosion;
 
     private void Awake()
     {
@@ -156,6 +159,8 @@ public class PlayerController : UnitBehaviour
         RangeIndicator = Instantiate(RangeIndicatorPrefab, Vector3.zero, Quaternion.identity);
         RangeIndicator.transform.localScale = Vector3.forward + new Vector3(1,1,0) * flashRadius * (((int)curAngerGauge/333)+1) * 10f;
         RangeIndicator.gameObject.SetActive(false);
+
+        hero = GameManager.Instance.hero;
     }
 
     private void Update()
@@ -375,5 +380,45 @@ public class PlayerController : UnitBehaviour
     {
         Vector3 dir = playerShockWave.transform.TransformVector(vec).normalized;
         return new ViewCastInfo(false, dir * viewRadius, viewRadius, 0f);
+    }
+
+    public IEnumerator Berserker()
+    {
+        if(berserker_time<=20f)
+        {
+            if(!isInDelay)
+            {
+                transform.position += (hero.transform.position - transform.position).normalized * speed * 2;
+                if((hero.transform.position - transform.position).magnitude <= playerErosion.RadiusMultiplier * 5 && isQActive)
+                {
+                    UpdateState(EPlayerState.Cast, EPlayerSkill.Erosion);
+                }
+                else if((hero.transform.position - transform.position).magnitude <= 3 * 5 && isWActive) //pizza 사거리를 찾아야하는데 못찾음...
+                {
+                    UpdateState(EPlayerState.Cast, EPlayerSkill.Pizza);
+                }
+                else if((hero.transform.position - transform.position).magnitude <=  Mathf.Lerp(AngerStep+1, AngerStep, 1 / ((AngerStep+1) * this.viewRadius + 0.34f) * playerShockWave.KnuckBackMultiplier) && isEActive)
+                {
+                    
+                }
+                else if(isFlashActive)
+                {
+                    var target_position = hero.transform.position;
+                    var dir = (target_position - transform.position).normalized;
+                }
+                else if(isQActive)
+                {
+                    UpdateState(EPlayerState.Cast, EPlayerSkill.Trap);
+                }
+                yield return null;
+            }
+        }
+        else
+        {
+            berserker_time = 0f;
+            curAngerGauge = 0f;
+            yield break;
+        }
+
     }
 }

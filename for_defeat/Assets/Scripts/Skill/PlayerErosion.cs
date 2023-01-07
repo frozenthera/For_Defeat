@@ -7,7 +7,8 @@ public class PlayerErosion : PlayerSkill
     public GameObject ErosionObject;
     [SerializeField] private float DOTLastingTime; 
     [SerializeField] private float DOTDamagePerSec;
-    [SerializeField] private float RadiusMultiplier;
+    [SerializeField] private float radiusMultiplier;
+    public float RadiusMultiplier => radiusMultiplier;
     [SerializeField] private float damage;
 
 
@@ -15,7 +16,7 @@ public class PlayerErosion : PlayerSkill
     {
         int AngerStep = (int)(GameManager.Instance.player.CurAngerGauge / 333) + 1;
         
-        Collider2D coll = Physics2D.OverlapCircle(origin.transform.position, RadiusMultiplier * (AngerStep + 1));
+        Collider2D coll = Physics2D.OverlapCircle(origin.transform.position, radiusMultiplier * (AngerStep + 1));
         if(coll != null && coll.CompareTag("Hero"))
         {
             coll.GetComponent<HeroBehaviour>().GetDamage(damage);
@@ -23,7 +24,7 @@ public class PlayerErosion : PlayerSkill
         ErosionObject EO = Instantiate(ErosionObject, origin.transform.position, Quaternion.identity).GetComponent<ErosionObject>();
         EO.lastTime = DOTLastingTime * (AngerStep + 1);
         EO.damagePerSec = DOTDamagePerSec * (AngerStep + 1);
-        EO.transform.localScale = Vector3.forward + new Vector3(5, 5, 0) * RadiusMultiplier * (AngerStep + 1);
+        EO.transform.localScale = Vector3.forward + new Vector3(5, 5, 0) * radiusMultiplier * (AngerStep + 1);
         yield return null;
     }
 }
