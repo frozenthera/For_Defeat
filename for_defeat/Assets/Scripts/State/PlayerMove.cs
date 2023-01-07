@@ -45,7 +45,7 @@ public class PlayerMove : IState
 
         if((targetPosition-player.transform.position).magnitude < player.PlayerMoveError)
         {
-            player.UpdateState(PlayerController.PlayerState.Wait);
+            player.UpdateState(PlayerController.EPlayerState.Wait);
         }
     }
 }

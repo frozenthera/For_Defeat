@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerShockWave : Skill
+public class PlayerShockWave : PlayerSkill
 {
     public GameObject ShockWaveObjectPrefab;
     public GameObject ShockWaveIndicatorPrefab;
@@ -15,7 +15,6 @@ public class PlayerShockWave : Skill
     [SerializeField] private float damage;
     [SerializeField] private float knuckBackSpeed;
     [SerializeField] private float knuckBackMultiplier;
-
     public struct ViewCastInfo
     {
         public bool hit;
@@ -60,7 +59,7 @@ public class PlayerShockWave : Skill
             ShockWaveObject SWO = go.GetComponent<ShockWaveObject>();
             int AngerStep = (int)(GameManager.Instance.player.CurAngerGauge / 333) + 1;
             SWO.damage = damage;
-            SWO.knuckBackVec = (GameManager.Instance.hero.transform.position - origin.transform.position).normalized * ((AngerStep+1) * viewRadius -  (GameManager.Instance.hero.transform.position - origin.transform.position).magnitude) * (AngerStep+1) * knuckBackMultiplier;
+            SWO.knuckBackVec = Mathf.Lerp(AngerStep + 1, AngerStep, (GameManager.Instance.hero.transform.position - origin.transform.position).magnitude / ((AngerStep + 1) * viewRadius + 0.34f)) * knuckBackMultiplier * (GameManager.Instance.hero.transform.position - origin.transform.position).normalized;
             SWO.knuckBackSec = SWO.knuckBackVec.magnitude / knuckBackSpeed;
             
             //Mesh to polygon collider
@@ -85,11 +84,6 @@ public class PlayerShockWave : Skill
             Destroy(indicator);
         }
         yield return null;
-    }
-
-    public override float CalcDamage()
-    {
-        return skilldamage;
     }
 
     void DrawFieldOfView(Vector3 targetVec)

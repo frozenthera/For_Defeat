@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerFlash : Skill
+public class PlayerFlash : PlayerSkill
 {
     [SerializeField] private GameObject RangeIndicatorPrefab;
     private GameObject RangeIndicator;
@@ -15,7 +15,7 @@ public class PlayerFlash : Skill
         RangeIndicator.gameObject.SetActive(false);
     }
 
-    public override IEnumerator OnSkillActive()
+    public override IEnumerator OnSkillActive(int skillIdx)
     {
         RangeIndicator.transform.position = origin.transform.position;
         RangeIndicator.transform.parent = origin.transform;
@@ -33,6 +33,7 @@ public class PlayerFlash : Skill
                 origin.transform.position = targetPosition;
                 yield return StartCoroutine(_OnSkillActive());
                 yield return StartCoroutine(EADelay());
+                StartCoroutine(GameManager.Instance.player.ECoolDownDic[(PlayerController.EPlayerSkill)skillIdx]);
             }
         }
         else if(Input.GetMouseButtonDown(1))
@@ -45,10 +46,5 @@ public class PlayerFlash : Skill
     {
         StartCoroutine(GameManager.Instance.player.EFlashCD());
         yield return null;
-    }
-
-    public override float CalcDamage()
-    {
-        return skilldamage;
     }
 }

@@ -30,7 +30,7 @@ public class PlayerCast : IState
     private IEnumerator ECheckDone()
     {
         player.skillList[skillIdx].origin = player.gameObject;
-        yield return player.StartCoroutine(player.skillList[skillIdx].OnSkillActive());
-        player.UpdateState(PlayerController.PlayerState.Wait);
+        yield return player.StartCoroutine(player.skillList[skillIdx].OnSkillActive(skillIdx));
+        player.UpdateState(PlayerController.EPlayerState.Wait);
     }
 }

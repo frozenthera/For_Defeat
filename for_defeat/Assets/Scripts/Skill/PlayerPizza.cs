@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerPizza : Skill
+public class PlayerPizza : PlayerSkill
 {
     public GameObject PizzaObjectPrefab;
     public GameObject PizzaIndicatorPrefab;
@@ -76,11 +76,6 @@ public class PlayerPizza : Skill
             Destroy(indicator);
         }
         yield return null;
-    }
-
-    public override float CalcDamage()
-    {
-        return skilldamage;
     }
 
     void DrawFieldOfView(Vector3 targetVec, int n)

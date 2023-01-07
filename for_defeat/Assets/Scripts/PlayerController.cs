@@ -28,16 +28,16 @@ public class PlayerController : UnitBehaviour
     private Vector3 mousePosition;
     private Vector3 targetPosition;
     
-    public List<Skill> skillList = new();
+    public List<PlayerSkill> skillList = new();
     
-    public enum PlayerState
+    public enum EPlayerState
     {
         Move,
         Wait,
         Cast
     }
 
-    public enum PlayerSkill
+    public enum EPlayerSkill
     {
         Erosion,
         Pizza,
@@ -84,7 +84,8 @@ public class PlayerController : UnitBehaviour
     public bool isFlashUsed = false;
 
     public StateMachine stateMachine;
-    private Dictionary<PlayerState, IState> dicState = new Dictionary<PlayerState, IState>();
+    private Dictionary<EPlayerState, IState> dicState = new Dictionary<EPlayerState, IState>();
+    public Dictionary<EPlayerSkill, IEnumerator> ECoolDownDic = new();
 
     public Animator playerAnim;
     private void Awake()
@@ -103,11 +104,17 @@ public class PlayerController : UnitBehaviour
         IState wait = new PlayerWait(this);
         IState cast = new PlayerCast(this);
 
-        dicState.Add(PlayerState.Move, move);
-        dicState.Add(PlayerState.Wait, wait);
-        dicState.Add(PlayerState.Cast, cast);
+        dicState.Add(EPlayerState.Move, move);
+        dicState.Add(EPlayerState.Wait, wait);
+        dicState.Add(EPlayerState.Cast, cast);
 
-        stateMachine = new StateMachine(dicState[PlayerState.Wait]);
+        ECoolDownDic.Add(EPlayerSkill.Erosion, EErosionCD());
+        ECoolDownDic.Add(EPlayerSkill.Pizza, EPizzaCD());
+        ECoolDownDic.Add(EPlayerSkill.ShockWave, EShockWaveCD());
+        ECoolDownDic.Add(EPlayerSkill.Trap, ETrapCD());
+        ECoolDownDic.Add(EPlayerSkill.Flash, EFlashCD());
+
+        stateMachine = new StateMachine(dicState[EPlayerState.Wait]);
 
         foreach(var skill in skillList) skill.origin = gameObject;
 
@@ -120,14 +127,14 @@ public class PlayerController : UnitBehaviour
         stateMachine.DoOperateUpdate();
     }
 
-    public void UpdateState(PlayerState type)
+    public void UpdateState(EPlayerState type)
     {
         stateMachine.SetState(dicState[type]);
     }
 
-    public void UpdateState(PlayerState type, PlayerSkill skillType)
+    public void UpdateState(EPlayerState type, EPlayerSkill skillType)
     {
-        ((PlayerCast)dicState[PlayerState.Cast]).skillIdx = (int)skillType;
+        ((PlayerCast)dicState[EPlayerState.Cast]).skillIdx = (int)skillType;
         stateMachine.SetState(dicState[type]);
     }
     
@@ -137,26 +144,23 @@ public class PlayerController : UnitBehaviour
         if(isInDelay) return;
         if(Input.GetKey(KeyCode.Q) && isQActive)
         {
-            UpdateState(PlayerState.Cast, PlayerSkill.Erosion);
-            StartCoroutine(EErosionCD());
+            UpdateState(EPlayerState.Cast, EPlayerSkill.Erosion);
         }
         else if(Input.GetKey(KeyCode.W) && isWActive)
         {
-            UpdateState(PlayerState.Cast, PlayerSkill.Pizza);
-            StartCoroutine(EPizzaCD());
+            UpdateState(EPlayerState.Cast, EPlayerSkill.Pizza);
         }
         else if(Input.GetKey(KeyCode.E) && isEActive)
         {
-            UpdateState(PlayerState.Cast, PlayerSkill.ShockWave);
+            UpdateState(EPlayerState.Cast, EPlayerSkill.ShockWave);
         }
         else if(Input.GetKey(KeyCode.R) && isRActive)
         {
-            UpdateState(PlayerState.Cast, PlayerSkill.Trap);
-            StartCoroutine(ETrapCD());
+            UpdateState(EPlayerState.Cast, EPlayerSkill.Trap);
         }
         else if(Input.GetKey(KeyCode.Space) && isFlashActive)
         {
-            UpdateState(PlayerState.Cast, PlayerSkill.Flash);
+            UpdateState(EPlayerState.Cast, EPlayerSkill.Flash);
         }
     }
 
@@ -170,6 +174,11 @@ public class PlayerController : UnitBehaviour
     public void PlayerDie()
     {
         //do something
+    }
+
+    public void UseAngergauge(float value)
+    {
+        curAngerGauge -= value;
     }
 
     private IEnumerator EAngerGaugeAscend()

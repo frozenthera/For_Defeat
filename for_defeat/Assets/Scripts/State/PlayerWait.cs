@@ -21,7 +21,7 @@ public class PlayerWait : IState
     {
         if(Input.GetMouseButtonDown(1))
         {
-            player.UpdateState(PlayerController.PlayerState.Move);
+            player.UpdateState(PlayerController.EPlayerState.Move);
         }
     }
 }

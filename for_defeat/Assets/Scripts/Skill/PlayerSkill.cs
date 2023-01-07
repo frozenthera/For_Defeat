@@ -2,34 +2,31 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class Skill : MonoBehaviour
+public abstract class PlayerSkill : MonoBehaviour
 {
-    //스킬 스프라이트
-    [SerializeField] protected Sprite skillSprite;
-    //스킬 이름
-    [SerializeField] protected string skillname;
+    [SerializeField] private float angerGaugeUsage;
+    //스킬 데미지
+    [SerializeField] protected float skilldamage;
     public GameObject origin;
     public GameObject target;
 
-
-    //스킬 데미지
-    [SerializeField] protected float skilldamage;
     //스킬 선딜레이
     [SerializeField] protected float BDelay;
     //스킬 후딜레이
     [SerializeField] protected float ADelay;
-    
     public bool isContinuable = true;
 
-    public virtual IEnumerator __OnSkillActive()
+    public virtual IEnumerator OnSkillActive(int skillIdx)
     {
+        if(GameManager.Instance.player.CurAngerGauge < angerGaugeUsage) yield break;
         yield return StartCoroutine(EBDelay());
+        GameManager.Instance.player.UseAngergauge(angerGaugeUsage);
         yield return StartCoroutine(_OnSkillActive());
         yield return StartCoroutine(EADelay());
+        StartCoroutine(GameManager.Instance.player.ECoolDownDic[(PlayerController.EPlayerSkill)skillIdx]);
     }
 
     public abstract IEnumerator _OnSkillActive();
-    public abstract float CalcDamage();
 
     protected IEnumerator EBDelay()
     {
@@ -54,5 +51,4 @@ public abstract class Skill : MonoBehaviour
         }
         origin.GetComponent<UnitBehaviour>().isInDelay = false;
     }
-
 }
