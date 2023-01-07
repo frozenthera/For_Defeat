@@ -4,14 +4,6 @@ using UnityEngine;
 
 public class PlayerShockWave : PlayerSkill
 {
-    public GameObject ShockWaveObjectPrefab;
-    public GameObject ShockWaveIndicatorPrefab;
-    private Mesh viewMesh;
-    public MeshFilter viewMeshFilter;
-    public float viewRadius;
-    [Range(0, 360)]
-    public float viewAngle;
-
     [SerializeField] private float damage;
     [SerializeField] private float knuckBackSpeed;
     [SerializeField] private float knuckBackMultiplier;
@@ -30,72 +22,58 @@ public class PlayerShockWave : PlayerSkill
             angle = _angle;
         }
     }
+    private PlayerController player;
 
-    public float meshResolution;
+    private void Start()
+    {
+        player = GameManager.Instance.player;
+    }
     public override IEnumerator _OnSkillActive()
     {
-        GameObject indicator = Instantiate(ShockWaveIndicatorPrefab, origin.transform.position, Quaternion.identity);
-        viewMesh = new Mesh();
-        viewMesh.name = "View Mesh";
+        GameObject go = Instantiate(player.ShockWaveObjectPrefab, origin.transform.position, Quaternion.identity);    
         
-        Vector3 _targetPosition = Vector3.right;        
-        DrawFieldOfView(_targetPosition);
-
-        indicator.transform.GetChild(0).GetComponent<MeshFilter>().mesh = viewMesh;
+        Vector3 targetPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        targetPosition = (targetPosition-origin.transform.position);
+        targetPosition = new Vector3(targetPosition.x, targetPosition.y, 0f);
+        targetPosition.Normalize();
+        DrawFieldOfView(targetPosition);
+        player.viewMeshFilter = go.GetComponent<MeshFilter>();
+        player.viewMeshFilter.mesh = player.viewMesh;
         
-        yield return new WaitUntil(()=> Input.GetMouseButtonDown(0) || Input.GetMouseButtonDown(1));
-        if(Input.GetMouseButtonDown(0))
+        ShockWaveObject SWO = go.GetComponent<ShockWaveObject>();
+        int AngerStep = (int)(GameManager.Instance.player.CurAngerGauge / 333) + 1;
+        SWO.damage = damage;
+        SWO.knuckBackVec = (GameManager.Instance.hero.transform.position - origin.transform.position).normalized * ((AngerStep+1) * player.viewRadius -  (GameManager.Instance.hero.transform.position - origin.transform.position).magnitude) * (AngerStep+1) * knuckBackMultiplier;
+        SWO.knuckBackSec = SWO.knuckBackVec.magnitude / knuckBackSpeed;
+        
+        //Mesh to polygon collider
+        Vector3[] vertices;
+        Vector2[] vertices2d;
+        vertices = player.viewMesh.vertices;
+        vertices2d = new Vector2[vertices.Length];
+        for(var i=0; i<vertices.Length; i++)
         {
-            GameObject go = Instantiate(ShockWaveObjectPrefab, origin.transform.position, Quaternion.identity);    
-            
-            Vector3 targetPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            targetPosition = (targetPosition-origin.transform.position);
-            targetPosition = new Vector3(targetPosition.x, targetPosition.y, 0f);
-            targetPosition.Normalize();
-            DrawFieldOfView(targetPosition);
-            viewMeshFilter = go.GetComponent<MeshFilter>();
-            viewMeshFilter.mesh = viewMesh;
-            
-            ShockWaveObject SWO = go.GetComponent<ShockWaveObject>();
-            int AngerStep = (int)(GameManager.Instance.player.CurAngerGauge / 333) + 1;
-            SWO.damage = damage;
-            SWO.knuckBackVec = Mathf.Lerp(AngerStep + 1, AngerStep, (GameManager.Instance.hero.transform.position - origin.transform.position).magnitude / ((AngerStep + 1) * viewRadius + 0.34f)) * knuckBackMultiplier * (GameManager.Instance.hero.transform.position - origin.transform.position).normalized;
-            SWO.knuckBackSec = SWO.knuckBackVec.magnitude / knuckBackSpeed;
-            
-            //Mesh to polygon collider
-            Vector3[] vertices;
-            Vector2[] vertices2d;
-            vertices = viewMesh.vertices;
-            vertices2d = new Vector2[vertices.Length];
-            for(var i=0; i<vertices.Length; i++)
-            {
-                vertices2d[i] = new Vector2(vertices[i].x, vertices[i].y);
-            }
-            PolygonCollider2D poly2d = go.GetComponent<PolygonCollider2D>();
-            poly2d.points = vertices2d;
-
-            Destroy(indicator);
-
-            StartCoroutine(GameManager.Instance.player.EShockWaveCD());
+            vertices2d[i] = new Vector2(vertices[i].x, vertices[i].y);
         }
-        //행동 취소
-        else if(Input.GetMouseButtonDown(1))
-        {
-            Destroy(indicator);
-        }
+        PolygonCollider2D poly2d = go.GetComponent<PolygonCollider2D>();
+        poly2d.points = vertices2d;
+
+        Destroy(player.indicator);
+
+        StartCoroutine(GameManager.Instance.player.EShockWaveCD());
         yield return null;
     }
-
-    void DrawFieldOfView(Vector3 targetVec)
+    
+    public void DrawFieldOfView(Vector3 targetVec)
     {
-        int stepCount = Mathf.RoundToInt(viewAngle * meshResolution);
-        float stepAngleSize = viewAngle / stepCount;
+        int stepCount = Mathf.RoundToInt(player.viewAngle * player.meshResolution);
+        float stepAngleSize = player.viewAngle / stepCount;
         List<Vector3> viewPoints = new List<Vector3>();
 
         
         for (int i = 0; i <= stepCount; i++)
         {
-            Vector3 direction = Quaternion.AngleAxis(-viewAngle / 2 + stepAngleSize * i, Vector3.back) * targetVec;
+            Vector3 direction = Quaternion.AngleAxis(-player.viewAngle / 2 + stepAngleSize * i, Vector3.back) * targetVec;
             ViewCastInfo newViewCast = ViewCast(direction);   
             viewPoints.Add(newViewCast.point);
         }
@@ -115,15 +93,15 @@ public class PlayerShockWave : PlayerSkill
                 triangles[i * 3 + 2] = i + 2;
             }
         }
-        viewMesh.Clear();
-        viewMesh.vertices = vertices;
-        viewMesh.triangles = triangles;
-        viewMesh.RecalculateNormals();
+        player.viewMesh.Clear();
+        player.viewMesh.vertices = vertices;
+        player.viewMesh.triangles = triangles;
+        player.viewMesh.RecalculateNormals();
     }
 
     ViewCastInfo ViewCast(Vector3 vec)
     {
         Vector3 dir = transform.TransformVector(vec).normalized;
-        return new ViewCastInfo(false, dir * viewRadius, viewRadius, 0f);
+        return new ViewCastInfo(false, dir * player.viewRadius, player.viewRadius, 0f);
     }
 }
