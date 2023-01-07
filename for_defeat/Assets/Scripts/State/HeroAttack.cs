@@ -25,7 +25,8 @@ public class HeroAttack : IState
     {
         if(isAttackable)
         {
-            if((GameManager.Instance.player.transform.position - hero.transform.position).magnitude <= hero.HeroRecogRad)
+            Collider2D coll = Physics2D.OverlapCircle(hero.transform.position, hero.HeroRecogRad);
+            if(coll.CompareTag("Player"))
             {
                 GameManager.Instance.player.GetDamage(hero.HeroNormalAttackDamage);
             } 

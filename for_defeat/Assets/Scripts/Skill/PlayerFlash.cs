@@ -15,13 +15,12 @@ public class PlayerFlash : Skill
         RangeIndicator.gameObject.SetActive(false);
     }
 
-    public override IEnumerator _OnSkillActive()
+    public override IEnumerator OnSkillActive()
     {
         RangeIndicator.transform.position = origin.transform.position;
         RangeIndicator.transform.parent = origin.transform;
         RangeIndicator.gameObject.SetActive(true);
         yield return new WaitUntil(()=> Input.GetMouseButtonDown(0) || Input.GetMouseButtonDown(1));
-        //점멸 사용
         if(Input.GetMouseButtonDown(0))
         {
             RangeIndicator.gameObject.SetActive(false);
@@ -29,15 +28,23 @@ public class PlayerFlash : Skill
             targetPosition.z = origin.transform.position.z;
             if((origin.transform.position - targetPosition).magnitude <= FlashRadius) 
             {
+                
+                yield return StartCoroutine(EBDelay());
                 origin.transform.position = targetPosition;
-                StartCoroutine(GameManager.Instance.player.EFlashCD());
+                yield return StartCoroutine(_OnSkillActive());
+                yield return StartCoroutine(EADelay());
             }
         }
-        //행동 취소
         else if(Input.GetMouseButtonDown(1))
         {
             RangeIndicator.gameObject.SetActive(false);
         }
+    }
+
+    public override IEnumerator _OnSkillActive()
+    {
+        StartCoroutine(GameManager.Instance.player.EFlashCD());
+        yield return null;
     }
 
     public override float CalcDamage()

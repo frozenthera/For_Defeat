@@ -37,7 +37,8 @@ public class HeroMove : IState
             heroSprite.flipX = true;
         }
         
-        if(moveVec.magnitude <= hero.HeroRecogRad)
+        Collider2D coll = Physics2D.OverlapCircle(hero.transform.position, hero.HeroRecogRad);
+        if(coll.CompareTag("Player"))
         {
             hero.UpdateState(HeroBehaviour.HeroState.Attack);
             return;

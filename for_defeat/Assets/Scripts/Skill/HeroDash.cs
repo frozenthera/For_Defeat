@@ -14,7 +14,7 @@ public class HeroDash : Skill
         while(curDashSec > 0)
         {
             if(!isContinuable) yield break;
-            origin.transform.position += dir.normalized * dashLength * dashSec * Time.deltaTime;
+            origin.transform.position += dir.normalized * dashLength / dashSec * Time.deltaTime;
             curDashSec -= Time.deltaTime;
             yield return null;
         }

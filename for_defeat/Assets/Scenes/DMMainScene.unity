@@ -427,8 +427,8 @@ MonoBehaviour:
   target: {fileID: 0}
   attackType: 0
   skilldamage: 0
-  BDelay: 0
-  ADelay: 0
+  BDelay: 0.5
+  ADelay: 0.5
   isContinuable: 1
   RangeIndicatorPrefab: {fileID: 1785999215725809044, guid: 1ebfaebf62756c9429d77c326532fbb8, type: 3}
   FlashRadius: 3
@@ -3475,7 +3475,7 @@ MonoBehaviour:
   ADelay: 0
   isContinuable: 1
   dashLength: 2
-  dashSec: 1
+  dashSec: 0.5
 --- !u!4 &1409969115
 Transform:
   m_ObjectHideFlags: 0
@@ -4803,6 +4803,7 @@ MonoBehaviour:
   ADelay: 0
   isContinuable: 1
   ShockWaveObjectPrefab: {fileID: 988865814613561557, guid: 43785e6ecadc1d34bb2f49456f34df23, type: 3}
+  ShockWaveIndicatorPrefab: {fileID: 4720300408422774596, guid: 310da8583858c164fb731ddf83fcb93e, type: 3}
   viewMeshFilter: {fileID: 0}
   viewRadius: 2
   viewAngle: 90

@@ -5,6 +5,7 @@ using UnityEngine;
 public class PlayerShockWave : Skill
 {
     public GameObject ShockWaveObjectPrefab;
+    public GameObject ShockWaveIndicatorPrefab;
     private Mesh viewMesh;
     public MeshFilter viewMeshFilter;
     public float viewRadius;
@@ -34,29 +35,34 @@ public class PlayerShockWave : Skill
     public float meshResolution;
     public override IEnumerator _OnSkillActive()
     {
+        GameObject indicator = Instantiate(ShockWaveIndicatorPrefab, origin.transform.position, Quaternion.identity);
+        viewMesh = new Mesh();
+        viewMesh.name = "View Mesh";
+        
+        Vector3 _targetPosition = Vector3.right;        
+        DrawFieldOfView(_targetPosition);
+
+        indicator.transform.GetChild(0).GetComponent<MeshFilter>().mesh = viewMesh;
+        
         yield return new WaitUntil(()=> Input.GetMouseButtonDown(0) || Input.GetMouseButtonDown(1));
         if(Input.GetMouseButtonDown(0))
         {
-            GameObject go = Instantiate(ShockWaveObjectPrefab, origin.transform.position, Quaternion.identity);
+            GameObject go = Instantiate(ShockWaveObjectPrefab, origin.transform.position, Quaternion.identity);    
+            
+            Vector3 targetPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            targetPosition = (targetPosition-origin.transform.position);
+            targetPosition = new Vector3(targetPosition.x, targetPosition.y, 0f);
+            targetPosition.Normalize();
+            DrawFieldOfView(targetPosition);
+            viewMeshFilter = go.GetComponent<MeshFilter>();
+            viewMeshFilter.mesh = viewMesh;
+            
             ShockWaveObject SWO = go.GetComponent<ShockWaveObject>();
             int AngerStep = (int)(GameManager.Instance.player.CurAngerGauge / 333) + 1;
             SWO.damage = damage;
             SWO.knuckBackVec = (GameManager.Instance.hero.transform.position - origin.transform.position).normalized * ((AngerStep+1) * viewRadius -  (GameManager.Instance.hero.transform.position - origin.transform.position).magnitude) * (AngerStep+1) * knuckBackMultiplier;
             SWO.knuckBackSec = SWO.knuckBackVec.magnitude / knuckBackSpeed;
             
-            viewMesh = new Mesh();
-            viewMesh.name = "View Mesh";
-            viewMeshFilter = go.GetComponent<MeshFilter>();
-            
-            Vector3 targetPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            targetPosition = (targetPosition-origin.transform.position);
-            targetPosition = new Vector3(targetPosition.x, targetPosition.y, 0f);
-            targetPosition.Normalize();
-            
-            DrawFieldOfView(targetPosition);
-            viewMeshFilter.mesh = viewMesh;
-
-
             //Mesh to polygon collider
             Vector3[] vertices;
             Vector2[] vertices2d;
@@ -69,13 +75,14 @@ public class PlayerShockWave : Skill
             PolygonCollider2D poly2d = go.GetComponent<PolygonCollider2D>();
             poly2d.points = vertices2d;
 
+            Destroy(indicator);
 
             StartCoroutine(GameManager.Instance.player.EShockWaveCD());
         }
         //행동 취소
         else if(Input.GetMouseButtonDown(1))
         {
-            
+            Destroy(indicator);
         }
         yield return null;
     }

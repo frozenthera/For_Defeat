@@ -27,7 +27,7 @@ public abstract class Skill : MonoBehaviour
     
     public bool isContinuable = true;
 
-    public IEnumerator OnSkillActive()
+    public virtual IEnumerator OnSkillActive()
     {
         yield return StartCoroutine(EBDelay());
         yield return StartCoroutine(_OnSkillActive());
@@ -57,7 +57,7 @@ public abstract class Skill : MonoBehaviour
         }
     }
 
-    private IEnumerator EBDelay()
+    protected IEnumerator EBDelay()
     {
         float curBDelay = BDelay;
         while(curBDelay >= 0)
@@ -68,7 +68,7 @@ public abstract class Skill : MonoBehaviour
         }
     }
 
-    private IEnumerator EADelay()
+    protected IEnumerator EADelay()
     {
         float curADelay = ADelay;
         while(curADelay >= 0)
