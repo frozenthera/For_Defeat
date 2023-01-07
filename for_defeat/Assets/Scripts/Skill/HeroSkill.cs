@@ -33,6 +33,7 @@ public abstract class HeroSkill : MonoBehaviour
 
     protected IEnumerator EBDelay()
     {
+        origin.GetComponent<UnitBehaviour>().isInDelay = true;
         float curBDelay = BDelay;
         while(curBDelay >= 0)
         {
@@ -44,7 +45,7 @@ public abstract class HeroSkill : MonoBehaviour
 
     protected IEnumerator EADelay()
     {
-        origin.GetComponent<UnitBehaviour>().isInDelay = true;
+        
         float curADelay = ADelay;
         while(curADelay >= 0)
         {

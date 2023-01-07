@@ -74,6 +74,7 @@ public class HeroBehaviour : UnitBehaviour
 
     [SerializeField] private float normalAttckGaugeGain;
     public float NormalAttackGaugeGain => normalAttckGaugeGain;
+    private SpriteRenderer heroSprite;
     private void Awake()
     {
         GameManager.Instance.hero = this;
@@ -106,14 +107,29 @@ public class HeroBehaviour : UnitBehaviour
         player = GameManager.Instance.player;
 
         heroAnim = GetComponent<Animator>();
+        heroSprite = GetComponent<SpriteRenderer>();
     }
 
     private void Update()
     {
+        Vector3 moveVec = player.transform.position - transform.position;
+        if(moveVec.x < 0)
+        {
+            heroSprite.flipX = false;
+        }
+        else
+        {
+            heroSprite.flipX = true;
+        }
+
         if(isInDelay) return;
         if(stateMachine.CurruentState != dicState[HeroState.KnuckBack])
         {
-            if(isImmunable && curHP <= immuneThreshold)
+            if((player.transform.position - transform.position).magnitude <= heroRecogRad)
+            {
+                UpdateState(HeroState.Attack);
+            }
+            else if(isImmunable && curHP <= immuneThreshold)
             {
                 UpdateState(HeroState.Cast, heroSKill.Immune);
                 StartCoroutine(EImmuneCD());
