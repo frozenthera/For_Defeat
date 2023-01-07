@@ -7,9 +7,11 @@ public class PlayerMove : IState
     private PlayerController player;
     private Vector3 targetPosition;
     private float accelatedSpeed;
+    private SpriteRenderer playerSprite;
     public PlayerMove(PlayerController player)
     {
         this.player = player;
+        playerSprite = player.GetComponent<SpriteRenderer>();
     }
     public void OperateEnter()
     {
@@ -29,6 +31,14 @@ public class PlayerMove : IState
             accelatedSpeed = player.PlayerSpeed;
             targetPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             targetPosition.z = player.transform.position.z;
+            if ((targetPosition.x - player.transform.position.x) < 0)
+            {
+                playerSprite.flipX = false;
+            }
+            else
+            {
+                playerSprite.flipX = true;
+            }
         }
         accelatedSpeed += player.PlayerAccel * Time.deltaTime;
         player.transform.position += accelatedSpeed * (targetPosition - player.transform.position).normalized * Time.deltaTime;

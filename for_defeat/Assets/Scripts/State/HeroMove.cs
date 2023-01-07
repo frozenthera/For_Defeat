@@ -6,11 +6,13 @@ public class HeroMove : IState
 {
     private HeroBehaviour hero;
     public PlayerController player;
+    private SpriteRenderer heroSprite;
     
     public HeroMove(HeroBehaviour hero)
     {
         this.hero = hero;
         player = GameManager.Instance.player;
+        heroSprite = hero.GetComponent<SpriteRenderer>();
     }
 
     public void OperateEnter()
@@ -26,6 +28,15 @@ public class HeroMove : IState
     public void OperateUpdate()
     {
         Vector3 moveVec = player.transform.position - hero.transform.position;
+        if(moveVec.x < 0)
+        {
+            heroSprite.flipX = false;
+        }
+        else
+        {
+            heroSprite.flipX = true;
+        }
+        
         if(moveVec.magnitude <= hero.HeroRecogRad)
         {
             hero.UpdateState(HeroBehaviour.HeroState.Attack);
