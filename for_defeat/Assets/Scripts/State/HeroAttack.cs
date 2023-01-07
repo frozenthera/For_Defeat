@@ -28,26 +28,38 @@ public class HeroAttack : IState
             Collider2D coll = Physics2D.OverlapCircle(hero.transform.position, hero.HeroRecogRad);
             if(coll.CompareTag("Player"))
             {
+                Debug.Log("damaged by normal attack");
                 GameManager.Instance.player.GetDamage(hero.HeroNormalAttackDamage);
             } 
-            GameManager.Instance.StartCoroutine(EAttackADelay());
             isAttackable = false;
+            GameManager.Instance.StartCoroutine(EAttackADelay());
+            
         }
     }
 
     private IEnumerator EAttackBDelay()
     {
+        isAttackable = false;
+        hero.isInDelay = true;
+        hero.heroAttackCircle.transform.position = hero.transform.position;
+        hero.heroAttackCircle.SetActive(true);
+        Debug.Log("Show Circle!");
         float BDelay = hero.HeroNormalBDelay;
         while(BDelay >= 0)
         {
+            Debug.Log(BDelay);
+            hero.heroAttackCircle.transform.position = hero.transform.position;
             BDelay -= Time.deltaTime;
             yield return null;
         }
         isAttackable = true;
+        hero.isInDelay = false;
+        hero.heroAttackCircle.SetActive(false);
     }
 
     private IEnumerator EAttackADelay()
     {
+        hero.isInDelay = true;
         float ADelay = hero.HeroNormalADelay;
         while(ADelay >= 0)
         {
@@ -55,6 +67,7 @@ public class HeroAttack : IState
             yield return null;
         }
         Debug.Log("Attack->Move");
+        hero.isInDelay = false;
         hero.UpdateState(HeroBehaviour.HeroState.Move);
     }
 }
