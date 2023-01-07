@@ -39,6 +39,7 @@ public class HeroMove : IState
         
         if(moveVec.magnitude <= hero.HeroRecogRad)
         {
+            Debug.Log("Move -> Attack");
             hero.UpdateState(HeroBehaviour.HeroState.Attack);
             return;
         } 

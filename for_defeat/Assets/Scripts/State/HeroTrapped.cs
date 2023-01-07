@@ -15,7 +15,8 @@ public class HeroTrapped : IState
 
     public void OperateEnter()
     {
-        
+        isAttackable = false;
+        isContinuable = true;
     }
 
     public void OperateExit()
@@ -32,6 +33,7 @@ public class HeroTrapped : IState
             if(trapObject.trapHP == 1) 
             {
                 isContinuable = false;
+                Debug.Log("Trap -> Move");
                 hero.UpdateState(HeroBehaviour.HeroState.Move);
             }
         }

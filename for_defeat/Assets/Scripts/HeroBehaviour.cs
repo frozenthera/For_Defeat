@@ -102,22 +102,22 @@ public class HeroBehaviour : MonoBehaviour
 
     private void Update()
     {
-        if(isSlashable)
+        if(isSlashable && (stateMachine.CurruentState != dicState[HeroState.Trapped]))
         {
             UpdateState(HeroState.Cast, heroSKill.Slash);   
             StartCoroutine(ESlashCD());
         }
-        else if(isDashable && (GameManager.Instance.player.transform.position - transform.position).sqrMagnitude >= 25)
+        else if(isDashable && (GameManager.Instance.player.transform.position - transform.position).sqrMagnitude >= 25 && (stateMachine.CurruentState != dicState[HeroState.Trapped]))
         {
             UpdateState(HeroState.Cast, heroSKill.Dash);
             StartCoroutine(EDashCD());
         }
-        else if(isHealable && curHP <= healThreshold)
+        else if(isHealable && curHP <= healThreshold && (stateMachine.CurruentState != dicState[HeroState.Trapped]))
         {
             UpdateState(HeroState.Cast, heroSKill.Heal);
             StartCoroutine(EHealCD());
         }
-        else if(isImmunable && curHP <= immuneThreshold)
+        else if(isImmunable && curHP <= immuneThreshold && (stateMachine.CurruentState != dicState[HeroState.Trapped]))
         {
             UpdateState(HeroState.Cast, heroSKill.Immune);
             StartCoroutine(EImmuneCD());
