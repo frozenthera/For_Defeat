@@ -16,6 +16,6 @@ public class AngerBar : MonoBehaviour
     private void Update()
     {
         angerBar.value = player.CurAngerGauge / maxAnger;
-        Debug.Log(player.CurAngerGauge / maxAnger);
+        // Debug.Log(player.CurAngerGauge / maxAnger);
     }
 }

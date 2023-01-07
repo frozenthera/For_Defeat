@@ -27,7 +27,7 @@ public abstract class Skill : MonoBehaviour
     
     public bool isContinuable = true;
 
-    public virtual IEnumerator OnSkillActive()
+    public IEnumerator OnSkillActive()
     {
         yield return StartCoroutine(EBDelay());
         yield return StartCoroutine(_OnSkillActive());

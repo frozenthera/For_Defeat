@@ -13,11 +13,11 @@ public class ErosionObject : MonoBehaviour
         StartCoroutine(ExtinguishTimer());
     }
 
-    private void OnTriggerStay(Collider coll)
+    private void OnTriggerStay2D(Collider2D coll)
     {
         if(coll.transform.CompareTag("Hero"))
         {
-            // Debug.Log("Getting DOT");
+            Debug.Log("Getting DOT");
             HeroBehaviour HB = coll.transform.GetComponent<HeroBehaviour>();
             HB.GetDamage(damagePerSec * Time.deltaTime);
         }

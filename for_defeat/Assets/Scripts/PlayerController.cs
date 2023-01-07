@@ -144,7 +144,6 @@ public class PlayerController : MonoBehaviour
         else if(Input.GetKey(KeyCode.E) && isEActive)
         {
             UpdateState(PlayerState.Cast, PlayerSkill.ShockWave);
-            StartCoroutine(EShockWaveCD());
         }
         else if(Input.GetKey(KeyCode.R) && isRActive)
         {
@@ -173,7 +172,7 @@ public class PlayerController : MonoBehaviour
     {
         while(true)
         {
-            curAngerGauge += Time.deltaTime;
+            curAngerGauge += Time.deltaTime * 10;
             curAngerGauge = Mathf.Min(curAngerGauge, maxAngerGauge);
             yield return null;
         }   
@@ -203,7 +202,7 @@ public class PlayerController : MonoBehaviour
         isWActive = true;
     }
 
-    private IEnumerator EShockWaveCD()
+    public IEnumerator EShockWaveCD()
     {
         isEActive = false;
         curECoolDown = ECoolDown;

@@ -800,7 +800,7 @@ MonoBehaviour:
   BDelay: 0
   ADelay: 0
   isContinuable: 1
-  buffTime: 0
+  buffTime: 2
   speedBuffPercent: 0
 --- !u!1 &286492124
 GameObject:
@@ -1007,7 +1007,7 @@ GameObject:
   - component: {fileID: 366790765}
   - component: {fileID: 366790770}
   - component: {fileID: 366790773}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Hero
   m_TagString: Hero
   m_Icon: {fileID: 0}
@@ -1037,7 +1037,7 @@ MonoBehaviour:
   healThreshold: 0
   isImmune: 0
   heroImmuneCD: 0
-  immuneThreshold: 0
+  immuneThreshold: 50
   maxHP: 100
   curHP: 0
   skillList:
@@ -1143,7 +1143,7 @@ CircleCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -2952,7 +2952,7 @@ GameObject:
   - component: {fileID: 1148755882}
   - component: {fileID: 1148755881}
   - component: {fileID: 1148755880}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -3230,7 +3230,7 @@ MonoBehaviour:
   BDelay: 0
   ADelay: 1
   isContinuable: 1
-  SlashObject: {fileID: 2323350918968441749, guid: a4d516174961e8b42b1ca10fb357edbe, type: 3}
+  SlashObject: {fileID: 2895810081340397705, guid: a4d516174961e8b42b1ca10fb357edbe, type: 3}
 --- !u!4 &1286842565
 Transform:
   m_ObjectHideFlags: 0
@@ -5357,7 +5357,7 @@ MonoBehaviour:
   ErosionObject: {fileID: 5233675987532633607, guid: ba8f02e89bfcfc84d8e7f16531f5f78b, type: 3}
   DOTLastingTime: 3
   DOTDamagePerSec: 4
-  RadiusMultiplier: 3
+  RadiusMultiplier: 1
   damage: 3
 --- !u!1 &2063307953
 GameObject:
@@ -5412,8 +5412,8 @@ MonoBehaviour:
   BDelay: 0
   ADelay: 0
   isContinuable: 1
-  totalHeal: 0
-  healPerTick: 0
+  totalHeal: 10
+  healPerTick: 2
 --- !u!1 &2084989404
 GameObject:
   m_ObjectHideFlags: 0

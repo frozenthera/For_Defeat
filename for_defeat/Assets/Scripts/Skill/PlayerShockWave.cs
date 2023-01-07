@@ -70,7 +70,7 @@ public class PlayerShockWave : Skill
             poly2d.points = vertices2d;
 
 
-            StartCoroutine(GameManager.Instance.player.EFlashCD());
+            StartCoroutine(GameManager.Instance.player.EShockWaveCD());
         }
         //행동 취소
         else if(Input.GetMouseButtonDown(1))

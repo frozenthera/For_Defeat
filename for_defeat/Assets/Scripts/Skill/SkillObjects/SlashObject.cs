@@ -20,7 +20,7 @@ public class SlashObject : MonoBehaviour
         transform.position += speed * dir * Time.deltaTime;
     }
     
-    private void OnCollisionEnter(Collision coll)
+    private void OnTriggerEnter2D(Collider2D coll)
     {
         // Debug.Log("collision"); 
         if(coll.transform.CompareTag("Player"))
