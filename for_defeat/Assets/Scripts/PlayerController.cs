@@ -27,7 +27,8 @@ public class PlayerController : UnitBehaviour
     public float CurAngerGauge => curAngerGauge;
     private Vector3 mousePosition;
     private Vector3 targetPosition;
-    
+    private bool isWaitingPizza = false;
+
     public List<PlayerSkill> skillList = new();
     
     public enum EPlayerState
@@ -103,6 +104,11 @@ public class PlayerController : UnitBehaviour
     [Range(0, 360)]
     public float viewAngle;
     public float meshResolution;
+    [SerializeField] private float pizzaViewAngle;
+    [SerializeField] private GameObject PizzaIndicatorPrefab;
+    private GameObject PizzaIndicator;
+    private Mesh pizzaViewMesh;
+
     public struct ViewCastInfo
     {
         public bool hit;
@@ -183,9 +189,10 @@ public class PlayerController : UnitBehaviour
         {
             UpdateState(EPlayerState.Cast, EPlayerSkill.Erosion);
         }
-        else if(Input.GetKey(KeyCode.W) && isWActive)
-        {
-            UpdateState(EPlayerState.Cast, EPlayerSkill.Pizza);
+        else if(Input.GetKey(KeyCode.W) && isWActive && !isWaitingPizza)
+        {   
+            skillList[(int)EPlayerSkill.Pizza].GetComponent<PlayerPizza>().MakeIndicator();
+            StartCoroutine(PizzaWaiting());
         }
         else if(Input.GetKeyDown(KeyCode.E) && isEActive)
         {
@@ -332,6 +339,24 @@ public class PlayerController : UnitBehaviour
         else if(Input.GetMouseButtonDown(1))
         {
             Destroy(indicator);
+        }
+        yield return null;
+    }
+
+    public IEnumerator PizzaWaiting()
+    {
+        isWaitingPizza = true;
+        yield return new WaitUntil(()=> Input.GetMouseButtonDown(0) || Input.GetMouseButtonDown(1));
+        if(Input.GetMouseButtonDown(0))
+        {
+            Destroy(PizzaIndicator);
+            isWaitingPizza = false;
+            UpdateState(EPlayerState.Cast, EPlayerSkill.Pizza);
+        }
+        else if(Input.GetMouseButtonDown(1))
+        {
+            isWaitingPizza = false;
+            Destroy(PizzaIndicator);
         }
         yield return null;
     }

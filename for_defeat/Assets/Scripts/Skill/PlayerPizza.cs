@@ -14,6 +14,7 @@ public class PlayerPizza : PlayerSkill
     //damage per 0.5sec
     [SerializeField] private float DOTDamage;
     [SerializeField] private float DOTLastTime;
+    private GameObject indicator;
 
     public struct ViewCastInfo
     {
@@ -30,10 +31,9 @@ public class PlayerPizza : PlayerSkill
             angle = _angle;
         }
     }
-
-    public override IEnumerator _OnSkillActive()
+    public void MakeIndicator()
     {
-        GameObject indicator = Instantiate(PizzaIndicatorPrefab, origin.transform.position, Quaternion.identity);
+        indicator = Instantiate(PizzaIndicatorPrefab, origin.transform.position, Quaternion.identity, GameManager.Instance.player.transform);
         viewMesh = new Mesh();
         int AngerStep = (int)(GameManager.Instance.player.CurAngerGauge / 333);
         viewAngle = 30f;
@@ -42,43 +42,38 @@ public class PlayerPizza : PlayerSkill
         DrawFieldOfView(_targetPosition, 6);
 
         indicator.transform.GetChild(0).GetComponent<MeshFilter>().mesh = viewMesh;
+    }
 
-        yield return new WaitUntil(()=> Input.GetMouseButtonDown(0) || Input.GetMouseButtonDown(1));
-        if(Input.GetMouseButtonDown(0))
+    public override IEnumerator _OnSkillActive()
+    {       
+        GameObject go = Instantiate(PizzaObjectPrefab, origin.transform.position, Quaternion.identity);    
+        
+        Vector3 targetPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        targetPosition = (targetPosition-origin.transform.position);
+        targetPosition = new Vector3(targetPosition.x, targetPosition.y, 0f);
+        targetPosition.Normalize();
+        DrawFieldOfView(targetPosition, 6);
+        viewMeshFilter = go.GetComponent<MeshFilter>();
+        viewMeshFilter.mesh = viewMesh;
+
+        PizzaObject PO = go.GetComponent<PizzaObject>();
+        PO.DOTDamge = DOTDamage;
+        PO.DOTLastTime = DOTLastTime;
+
+        //Mesh to polygon collider
+        Vector3[] vertices;
+        Vector2[] vertices2d;
+        vertices = viewMesh.vertices;
+        vertices2d = new Vector2[vertices.Length];
+        for(var i=0; i<vertices.Length; i++)
         {
-            GameObject go = Instantiate(PizzaObjectPrefab, origin.transform.position, Quaternion.identity);    
-            
-            Vector3 targetPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            targetPosition = (targetPosition-origin.transform.position);
-            targetPosition = new Vector3(targetPosition.x, targetPosition.y, 0f);
-            targetPosition.Normalize();
-            DrawFieldOfView(targetPosition, 6);
-            viewMeshFilter = go.GetComponent<MeshFilter>();
-            viewMeshFilter.mesh = viewMesh;
-
-            PizzaObject PO = go.GetComponent<PizzaObject>();
-            PO.DOTDamge = DOTDamage;
-            PO.DOTLastTime = DOTLastTime;
-
-            //Mesh to polygon collider
-            Vector3[] vertices;
-            Vector2[] vertices2d;
-            vertices = viewMesh.vertices;
-            vertices2d = new Vector2[vertices.Length];
-            for(var i=0; i<vertices.Length; i++)
-            {
-                vertices2d[i] = new Vector2(vertices[i].x, vertices[i].y);
-            }
-            PolygonCollider2D poly2d = go.GetComponent<PolygonCollider2D>();
-            poly2d.points = vertices2d;
-
-            Destroy(indicator);
-            StartCoroutine(GameManager.Instance.player.EPizzaCD());
+            vertices2d[i] = new Vector2(vertices[i].x, vertices[i].y);
         }
-        else if(Input.GetMouseButtonDown(1))
-        {
-            Destroy(indicator);
-        }
+        PolygonCollider2D poly2d = go.GetComponent<PolygonCollider2D>();
+        poly2d.points = vertices2d;
+
+        Destroy(indicator);
+        StartCoroutine(GameManager.Instance.player.EPizzaCD());
         yield return null;
     }
 

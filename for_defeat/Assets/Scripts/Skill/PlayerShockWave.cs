@@ -50,6 +50,7 @@ public class PlayerShockWave : PlayerSkill
         SWO.knuckBackVec = dir.normalized * Mathf.Lerp(AngerStep+1, AngerStep, dir.magnitude / ((AngerStep+1) * player.viewRadius + 0.34f) * knuckBackMultiplier);
         SWO.knuckBackSec = SWO.knuckBackVec.magnitude / knuckBackSpeed;
         Debug.Log(SWO.knuckBackVec + ", "  + SWO.knuckBackSec);
+        
         //Mesh to polygon collider
         Vector3[] vertices;
         Vector2[] vertices2d;

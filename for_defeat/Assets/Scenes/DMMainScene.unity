@@ -680,6 +680,10 @@ PrefabInstance:
       value: Player
       objectReference: {fileID: 0}
     - target: {fileID: 3705978714310614445, guid: 2e33a7b07b05b0b45aa6ed807e2118bc, type: 3}
+      propertyPath: indicator
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 3705978714310614445, guid: 2e33a7b07b05b0b45aa6ed807e2118bc, type: 3}
       propertyPath: viewAngle
       value: 45
       objectReference: {fileID: 0}
@@ -699,6 +703,10 @@ PrefabInstance:
       propertyPath: playerShockWave
       value: 
       objectReference: {fileID: 1900270701}
+    - target: {fileID: 3705978714310614445, guid: 2e33a7b07b05b0b45aa6ed807e2118bc, type: 3}
+      propertyPath: PizzaIndicatorPrefab
+      value: 
+      objectReference: {fileID: 4720300408422774596, guid: 3995f7a9dd96ce741b30449f2f851968, type: 3}
     - target: {fileID: 3705978714310614445, guid: 2e33a7b07b05b0b45aa6ed807e2118bc, type: 3}
       propertyPath: RangeIndicatorPrefab
       value: 
@@ -5599,4 +5607,4 @@ MonoBehaviour:
   viewMeshFilter: {fileID: 0}
   viewRadius: 2
   DOTDamage: 1
-  DOTLastTime: 3
+  DOTLastTime: 1
