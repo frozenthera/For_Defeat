@@ -39,6 +39,7 @@ public class HeroBehaviour : MonoBehaviour
 
 
     [SerializeField] private float maxHP;
+    public float HeroMaxHP => maxHP;
     [SerializeField] public float curHP;
 
     
@@ -65,7 +66,10 @@ public class HeroBehaviour : MonoBehaviour
     public StateMachine stateMachine;
 
     private Dictionary<HeroState, IState> dicState = new Dictionary<HeroState, IState>();
-
+    private void Awake()
+    {
+        GameManager.Instance.hero = this;
+    }
     private void Start()
     {
         IState idle = new HeroIdle(this);
