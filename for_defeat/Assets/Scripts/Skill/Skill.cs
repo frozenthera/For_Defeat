@@ -70,6 +70,7 @@ public abstract class Skill : MonoBehaviour
 
     protected IEnumerator EADelay()
     {
+        origin.GetComponent<UnitBehaviour>().isInDelay = true;
         float curADelay = ADelay;
         while(curADelay >= 0)
         {
@@ -77,6 +78,7 @@ public abstract class Skill : MonoBehaviour
             curADelay -= Time.deltaTime;
             yield return null;
         }
+        origin.GetComponent<UnitBehaviour>().isInDelay = false;
     }
 
 }

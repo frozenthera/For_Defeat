@@ -1007,6 +1007,7 @@ GameObject:
   - component: {fileID: 366790765}
   - component: {fileID: 366790770}
   - component: {fileID: 366790773}
+  - component: {fileID: 366790774}
   m_Layer: 6
   m_Name: Hero
   m_TagString: Hero
@@ -1026,13 +1027,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60ce14bb715886f4ead4540f649de175, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isInDelay: 0
   heroSpeed: 1
   heroNormalBDelay: 1
   heroNormalADelay: 1
   heroNormalAttackDamage: 10
   heroRecogRad: 1
   heroSlashCD: 5
-  heroDashCD: 1
+  heroDashCD: 3
   heroHealCD: 0
   healThreshold: 0
   isImmune: 0
@@ -1045,6 +1047,7 @@ MonoBehaviour:
   - {fileID: 1409969114}
   - {fileID: 2063307955}
   - {fileID: 283282444}
+  heroAnim: {fileID: 0}
 --- !u!4 &366790769
 Transform:
   m_ObjectHideFlags: 0
@@ -1053,7 +1056,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 366790764}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3, y: 0.44, z: -2}
+  m_LocalPosition: {x: -3.5, y: 0.31, z: -2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1149,6 +1152,26 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.34
+--- !u!95 &366790774
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 366790764}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 6cf11ea9747673e42b4c97c3f3c91c14, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
 --- !u!1 &429897467
 GameObject:
   m_ObjectHideFlags: 0
@@ -2952,6 +2975,7 @@ GameObject:
   - component: {fileID: 1148755882}
   - component: {fileID: 1148755881}
   - component: {fileID: 1148755880}
+  - component: {fileID: 1148755883}
   m_Layer: 7
   m_Name: Player
   m_TagString: Player
@@ -3019,7 +3043,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1148755876}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.53, y: -0.59, z: -2}
+  m_LocalPosition: {x: 3.41, y: 0.44, z: -2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3075,6 +3099,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c78df2775b4e4b34f81e7fa5c84d544b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isInDelay: 0
   speed: 2
   accel: 0
   moveError: 0.1
@@ -3094,6 +3119,27 @@ MonoBehaviour:
   RCoolDown: 3
   FlashCoolDown: 2
   isFlashUsed: 0
+  playerAnim: {fileID: 0}
+--- !u!95 &1148755883
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1148755876}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 327f06c05552e7a4faed5fc89b1db978, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
 --- !u!1 &1218824527
 GameObject:
   m_ObjectHideFlags: 0
@@ -3472,7 +3518,7 @@ MonoBehaviour:
   attackType: 0
   skilldamage: 0
   BDelay: 0
-  ADelay: 0
+  ADelay: 0.2
   isContinuable: 1
   dashLength: 2
   dashSec: 0.5
@@ -4806,7 +4852,7 @@ MonoBehaviour:
   ShockWaveIndicatorPrefab: {fileID: 4720300408422774596, guid: 310da8583858c164fb731ddf83fcb93e, type: 3}
   viewMeshFilter: {fileID: 0}
   viewRadius: 2
-  viewAngle: 90
+  viewAngle: 45
   damage: 5
   knuckBackSpeed: 3
   knuckBackMultiplier: 1

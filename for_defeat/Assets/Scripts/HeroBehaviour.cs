@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HeroBehaviour : MonoBehaviour
+public class HeroBehaviour : UnitBehaviour
 {
 
     private PlayerController player;
@@ -42,9 +42,10 @@ public class HeroBehaviour : MonoBehaviour
     public float HeroMaxHP => maxHP;
     [SerializeField] public float curHP;
 
-    
+
     public List<Skill> skillList = new();
 
+    public Animator heroAnim;
     public enum HeroState
     {
         Idle,
@@ -98,10 +99,13 @@ public class HeroBehaviour : MonoBehaviour
         foreach(var skill in skillList) skill.origin = gameObject;
 
         player = GameManager.Instance.player;
+
+        heroAnim = GetComponent<Animator>();
     }
 
     private void Update()
     {
+        if(isInDelay) return;
         if(isSlashable && (stateMachine.CurruentState != dicState[HeroState.Trapped]))
         {
             UpdateState(HeroState.Cast, heroSKill.Slash);   

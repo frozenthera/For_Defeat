@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerController : MonoBehaviour
+public class PlayerController : UnitBehaviour
 {
     //플레이어 속도
     [SerializeField] private float speed;
@@ -86,6 +86,7 @@ public class PlayerController : MonoBehaviour
     public StateMachine stateMachine;
     private Dictionary<PlayerState, IState> dicState = new Dictionary<PlayerState, IState>();
 
+    public Animator playerAnim;
     private void Awake()
     {
         GameManager.Instance.player = this;
@@ -109,6 +110,8 @@ public class PlayerController : MonoBehaviour
         stateMachine = new StateMachine(dicState[PlayerState.Wait]);
 
         foreach(var skill in skillList) skill.origin = gameObject;
+
+        playerAnim = GetComponent<Animator>();
     }
 
     private void Update()
@@ -131,6 +134,7 @@ public class PlayerController : MonoBehaviour
     //Input에 따른 각 공격
     private void KeyBoardInput()
     {
+        if(isInDelay) return;
         if(Input.GetKey(KeyCode.Q) && isQActive)
         {
             UpdateState(PlayerState.Cast, PlayerSkill.Erosion);

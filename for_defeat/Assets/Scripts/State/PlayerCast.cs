@@ -13,12 +13,13 @@ public class PlayerCast : IState
 
     public void OperateEnter()
     {
+        player.playerAnim.SetBool("Attack", true);
         player.StartCoroutine(ECheckDone());
     }
 
     public void OperateExit()
     {
-
+        player.playerAnim.SetBool("Attack", false);
     }
 
     public void OperateUpdate()
