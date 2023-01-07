@@ -194,7 +194,7 @@ public class PlayerController : UnitBehaviour
         isQActive = true;
     }
 
-    private IEnumerator EPizzaCD()
+    public IEnumerator EPizzaCD()
     {
         isWActive = false;
         curWCoolDown = WCoolDown;

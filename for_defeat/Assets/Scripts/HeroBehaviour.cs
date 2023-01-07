@@ -161,8 +161,9 @@ public class HeroBehaviour : UnitBehaviour
     }
 
     public void GetDamage(float damage)
-    {
+    {   
         curHP -= damage;
+        // Debug.Log(damage + ", " + curHP);
         if(curHP <= 0) HeroDie();
     }
 

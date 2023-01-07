@@ -1146,7 +1146,7 @@ CircleCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -5510,8 +5510,13 @@ MonoBehaviour:
   origin: {fileID: 0}
   target: {fileID: 0}
   attackType: 0
-  skilldamage: 0
+  skilldamage: 10
   BDelay: 0
   ADelay: 0
   isContinuable: 1
-  PizzaObject: {fileID: 0}
+  PizzaObjectPrefab: {fileID: 988865814613561557, guid: f0c74e059a614bb4e8b48a3222032286, type: 3}
+  PizzaIndicatorPrefab: {fileID: 4720300408422774596, guid: 3995f7a9dd96ce741b30449f2f851968, type: 3}
+  viewMeshFilter: {fileID: 0}
+  viewRadius: 2
+  viewAngle: 0
+  SliceNum: 080000000a0000000c0000000e000000
