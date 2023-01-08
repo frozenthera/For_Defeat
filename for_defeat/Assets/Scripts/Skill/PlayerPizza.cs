@@ -54,6 +54,11 @@ public class PlayerPizza : PlayerSkill
 
     public override IEnumerator _OnSkillActive()
     {   
+        viewMesh = new Mesh();
+        int AngerStep = (int)(GameManager.Instance.player.CurAngerGauge / 333);
+        viewAngle = 60f;
+        _viewRadius = (AngerStep+2) * viewRadius;
+        
         GameManager.Instance.player.PizzaIndicator.SetActive(false);
         GameObject go = Instantiate(PizzaObjectPrefab, origin.transform.position, Quaternion.identity);    
         
