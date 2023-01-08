@@ -48,6 +48,7 @@ public class HeroBehaviour : UnitBehaviour
     public Animator heroAnim;
     public GameObject heroAttackCircle;
     public bool isInKnuckBack = false;
+    public bool isInTrap = false;
 
     public enum HeroState
     {
@@ -124,7 +125,7 @@ public class HeroBehaviour : UnitBehaviour
             heroSprite.flipX = true;
         }
 
-        if(isInDelay || stateMachine.CurruentState != dicState[HeroState.KnuckBack])
+        if(!isInDelay && stateMachine.CurruentState != dicState[HeroState.KnuckBack] && !GameManager.Instance.hero.isInTrap)
         {
             if((player.transform.position - transform.position).magnitude <= heroRecogRad)
             {

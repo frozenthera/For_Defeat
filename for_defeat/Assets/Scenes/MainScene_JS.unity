@@ -3666,6 +3666,14 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1234038236}
     - target: {fileID: 1539496954782780622, guid: 61f761adf2151284d8c061dc88fd0ebe, type: 3}
+      propertyPath: heroNormalADelay
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1539496954782780622, guid: 61f761adf2151284d8c061dc88fd0ebe, type: 3}
+      propertyPath: heroNormalBDelay
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1539496954782780622, guid: 61f761adf2151284d8c061dc88fd0ebe, type: 3}
       propertyPath: normalAttckGaugeGain
       value: 50
       objectReference: {fileID: 0}
@@ -4325,6 +4333,10 @@ PrefabInstance:
       propertyPath: flashRadius
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 3705978714310614445, guid: 2e33a7b07b05b0b45aa6ed807e2118bc, type: 3}
+      propertyPath: playerErosion
+      value: 
+      objectReference: {fileID: 1273196691}
     - target: {fileID: 3705978714310614445, guid: 2e33a7b07b05b0b45aa6ed807e2118bc, type: 3}
       propertyPath: meshResolution
       value: 0.1

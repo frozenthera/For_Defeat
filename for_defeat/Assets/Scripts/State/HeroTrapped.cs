@@ -27,13 +27,15 @@ public class HeroTrapped : IState
     {
         if(isAttackable)
         {
-            trapObject.GetDamage(1);
+            //trapObject.GetDamage(1);
             hero.StartCoroutine(EAttackADelay());
             isAttackable = false;
-            if(trapObject.trapHP == 1) 
+            if(trapObject.elapsedTime <= 0) 
             {
+                GameObject.Destroy(trapObject.gameObject);
                 isContinuable = false;
                 Debug.Log("Trap -> Move");
+                hero.isInTrap = false;
                 hero.UpdateState(HeroBehaviour.HeroState.Move);
             }
         }

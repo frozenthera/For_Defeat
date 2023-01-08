@@ -240,7 +240,7 @@ public class PlayerController : UnitBehaviour
             indicator.transform.GetChild(0).GetComponent<MeshFilter>().mesh = viewMesh;
             StartCoroutine(ShockWaveWaiting());
         }
-        else if(Input.GetKey(KeyCode.R) && isRActive)
+        else if(Input.GetKeyDown(KeyCode.R) && isRActive)
         {
             UpdateState(EPlayerState.Cast, EPlayerSkill.Trap);
         }

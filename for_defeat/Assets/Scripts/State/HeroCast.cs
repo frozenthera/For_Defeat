@@ -31,7 +31,6 @@ public class HeroCast : IState
         hero.skillList[skillIdx].origin = hero.gameObject;
         hero.skillList[skillIdx].target = GameManager.Instance.player.gameObject;
         yield return hero.skillList[skillIdx].StartCoroutine(hero.skillList[skillIdx].__OnSkillActive());
-        Debug.Log("Cast -> Move");
         hero.isInDelay = false;
         hero.UpdateState(HeroBehaviour.HeroState.Move);
     }
