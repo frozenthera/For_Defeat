@@ -18,7 +18,7 @@ public class PlayerController : UnitBehaviour
     [SerializeField] private float maxHP;
     public float PlayerMaxHP => maxHP;
     //현재 체력
-    [SerializeField] private float curHP;
+    [SerializeField] public float curHP;
     public float PlayerCurHP => curHP;
     //최대 분노게이지량
     [SerializeField] private float maxAngerGauge = 999f;

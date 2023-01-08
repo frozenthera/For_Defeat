@@ -284,6 +284,10 @@ public class HeroBehaviour : UnitBehaviour
     void OnDrawGizmos() {
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, heroRecogRad);
+    }
+
+    private void PlayBGM()
+    {
 
     }
 }

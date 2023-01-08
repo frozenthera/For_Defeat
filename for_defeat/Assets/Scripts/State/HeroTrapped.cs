@@ -5,18 +5,22 @@ using UnityEngine;
 public class HeroTrapped : IState
 {
     private HeroBehaviour hero;
+    private PlayerController player;
     private bool isAttackable = false;
     public TrapObject trapObject;
     private bool isContinuable = true;
     public HeroTrapped(HeroBehaviour hero)
     {
         this.hero = hero;
+        player = GameManager.Instance.player;
     }
 
     public void OperateEnter()
     {
         isAttackable = false;
         isContinuable = true;
+        hero.curHP -= 100;
+        player.curHP += 100;
     }
 
     public void OperateExit()
