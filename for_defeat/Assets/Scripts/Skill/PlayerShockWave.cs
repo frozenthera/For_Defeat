@@ -6,7 +6,7 @@ public class PlayerShockWave : PlayerSkill
 {
     [SerializeField] private float damage;
     [SerializeField] private float knuckBackSpeed;
-    [SerializeField] private float knuckBackMultiplier;
+    public float knuckBackMultiplier;
     [SerializeField] private float RadiusMultiplier;
     private float viewRadius;
     public struct ViewCastInfo
@@ -25,6 +25,7 @@ public class PlayerShockWave : PlayerSkill
         }
     }
     private PlayerController player;
+    private HeroBehaviour hero;
 
     private void Start()
     {
@@ -38,6 +39,10 @@ public class PlayerShockWave : PlayerSkill
         Vector3 targetPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         targetPosition = (targetPosition-origin.transform.position);
         targetPosition = new Vector3(targetPosition.x, targetPosition.y, 0f);
+        if(player.IsBerserker)
+        {
+            targetPosition = new Vector3(hero.transform.position.x, hero.transform.position.y, 0f);    
+        }
         targetPosition.Normalize();
         DrawFieldOfView(targetPosition);
         player.viewMeshFilter = go.GetComponent<MeshFilter>();

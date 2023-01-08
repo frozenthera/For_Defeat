@@ -7,10 +7,12 @@ public class PlayerFlash : PlayerSkill
     private float flashRadius;
     private float calculatedFlashRadius;
     private PlayerController player;
+    private HeroBehaviour hero;
 
     private void Start()
     {
         player = GameManager.Instance.player;
+        hero = GameManager.Instance.hero;
         RangeIndicator = player.RangeIndicator;
         flashRadius = player.FlashRadius;
     }
@@ -18,9 +20,12 @@ public class PlayerFlash : PlayerSkill
     public override IEnumerator OnSkillActive(int skillIdx)
     {
         calculatedFlashRadius = flashRadius * (((int)(player.CurAngerGauge/333))+1);
-        Debug.Log(calculatedFlashRadius);
         RangeIndicator.gameObject.SetActive(false);
         Vector3 targetPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        if(player.IsBerserker)
+        {
+            targetPosition = hero.transform.position;
+        }
         targetPosition.z = origin.transform.position.z;
         if((origin.transform.position - targetPosition).magnitude <= calculatedFlashRadius) 
         {

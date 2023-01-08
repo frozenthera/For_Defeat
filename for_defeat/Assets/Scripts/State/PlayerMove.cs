@@ -41,7 +41,10 @@ public class PlayerMove : IState
             }
         }
         accelatedSpeed += player.PlayerAccel * Time.deltaTime;
-        player.transform.position += accelatedSpeed * (targetPosition - player.transform.position).normalized * Time.deltaTime;
+        if(!player.IsBerserker)
+        {
+            player.transform.position += accelatedSpeed * (targetPosition - player.transform.position).normalized * Time.deltaTime;
+        }
 
         float _x = Mathf.Clamp(player.transform.position.x, -5.71f, 7.53f);
         float _y = Mathf.Clamp(player.transform.position.y, -3.88f, 3.49f);

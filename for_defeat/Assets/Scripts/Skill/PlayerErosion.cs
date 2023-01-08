@@ -6,7 +6,7 @@ public class PlayerErosion : PlayerSkill
 {
     public GameObject ErosionObjectPrefab;
     private GameObject ErosionEffect;
-    [SerializeField] private float RadiusMultiplier;
+    [SerializeField] public float RadiusMultiplier;
     [SerializeField] private float damage;
     [SerializeField] private float fadeOutTime = 1f;
 

@@ -704,6 +704,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1900270701}
     - target: {fileID: 3705978714310614445, guid: 2e33a7b07b05b0b45aa6ed807e2118bc, type: 3}
+      propertyPath: maxBerserkerTime
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 3705978714310614445, guid: 2e33a7b07b05b0b45aa6ed807e2118bc, type: 3}
       propertyPath: PizzaIndicatorPrefab
       value: 
       objectReference: {fileID: 4720300408422774596, guid: 3995f7a9dd96ce741b30449f2f851968, type: 3}
@@ -1602,7 +1606,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7915547875959185488, guid: 6c6697622b517b446b19e4d86dd2540a, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7915547875959185519, guid: 6c6697622b517b446b19e4d86dd2540a, type: 3}
       propertyPath: m_RootOrder
