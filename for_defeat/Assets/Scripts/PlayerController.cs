@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerController : UnitBehaviour
@@ -27,9 +28,13 @@ public class PlayerController : UnitBehaviour
     public float CurAngerGauge => curAngerGauge;
     private Vector3 mousePosition;
     private Vector3 targetPosition;
+
     private bool isWaitingPizza = false;
 
+
     public List<PlayerSkill> skillList = new();
+
+    [SerializeField] float gizmoRad;
     
     public enum EPlayerState
     {
@@ -274,7 +279,7 @@ public class PlayerController : UnitBehaviour
     {
         while(true)
         {
-            curAngerGauge += Time.deltaTime * 50;
+            curAngerGauge += Time.deltaTime * 12;
             curAngerGauge = Mathf.Min(curAngerGauge, maxAngerGauge);
             yield return null;
         }   
@@ -339,6 +344,7 @@ public class PlayerController : UnitBehaviour
         }
         isFlashActive = true;
     }
+
     
     public IEnumerator FlashWaiting()
     {
@@ -484,4 +490,9 @@ public class PlayerController : UnitBehaviour
         }
 
     }
+    void OnDrawGizmos() {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, gizmoRad);
+    }
+
 }

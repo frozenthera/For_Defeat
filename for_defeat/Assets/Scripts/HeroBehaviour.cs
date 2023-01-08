@@ -279,5 +279,10 @@ public class HeroBehaviour : UnitBehaviour
                 isInKnuckBack = false;
             }
         }
+
+    void OnDrawGizmos() {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, heroRecogRad);
+
     }
 }

@@ -101,19 +101,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isInDelay: 0
-  heroSpeed: 1
-  heroNormalBDelay: 1
-  heroNormalADelay: 1
+  heroSpeed: 1.5
+  heroNormalBDelay: 0.4
+  heroNormalADelay: 0.6
   heroNormalAttackDamage: 10
-  heroRecogRad: 1
-  heroSlashCD: 5
-  heroDashCD: 3
-  heroHealCD: 0
-  healThreshold: 0
+  heroRecogRad: 1.2
+  heroSlashCD: 3
+  heroDashCD: 6
+  heroHealCD: 10
+  healThreshold: 80
   isImmune: 0
-  heroImmuneCD: 0
-  immuneThreshold: 50
-  maxHP: 100
+  heroImmuneCD: 20
+  immuneThreshold: 20
+  maxHP: 1000
   curHP: 0
   skillList:
   - {fileID: 0}
@@ -122,6 +122,8 @@ MonoBehaviour:
   - {fileID: 0}
   heroAnim: {fileID: 0}
   heroAttackCircle: {fileID: 0}
+  isInKnuckBack: 0
+  normalAttckGaugeGain: 50
 --- !u!50 &1539496954782780625
 Rigidbody2D:
   serializedVersion: 4

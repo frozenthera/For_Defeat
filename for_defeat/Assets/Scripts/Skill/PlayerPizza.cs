@@ -44,6 +44,7 @@ public class PlayerPizza : PlayerSkill
         int AngerStep = (int)(GameManager.Instance.player.CurAngerGauge / 333);
         viewAngle = 60f;
         _viewRadius = (AngerStep+2) * viewRadius;
+
         Vector3 _targetPosition = Vector3.right;
         DrawFieldOfView(_targetPosition, 3);
 

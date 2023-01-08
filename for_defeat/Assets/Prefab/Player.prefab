@@ -101,10 +101,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isInDelay: 0
-  speed: 2
+  speed: 1.5
   accel: 0
   moveError: 0.1
-  maxHP: 100
+  maxHP: 1000
   curHP: 0
   maxAngerGauge: 999
   curAngerGauge: 0
@@ -114,25 +114,28 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  QCoolDown: 3
-  WCoolDown: 3
-  ECoolDown: 3
-  RCoolDown: 3
-  FlashCoolDown: 2
+  gizmoRad: 5
+  QCoolDown: 0.7
+  WCoolDown: 0.7
+  ECoolDown: 9
+  RCoolDown: 9
+  FlashCoolDown: 12
   isFlashUsed: 0
   playerAnim: {fileID: 0}
   RangeIndicatorPrefab: {fileID: 1785999215725809044, guid: 1ebfaebf62756c9429d77c326532fbb8, type: 3}
   RangeIndicator: {fileID: 0}
-  flashRadius: 3
+  flashRadius: 1.25
   ShockWaveObjectPrefab: {fileID: 988865814613561557, guid: 43785e6ecadc1d34bb2f49456f34df23, type: 3}
   ShockWaveIndicatorPrefab: {fileID: 4720300408422774596, guid: 310da8583858c164fb731ddf83fcb93e, type: 3}
   viewMesh: {fileID: 0}
   playerShockWave: {fileID: 0}
   indicator: {fileID: 0}
   viewMeshFilter: {fileID: 0}
-  viewRadius: 2
+  viewRadius: 1.5
   viewAngle: 45
   meshResolution: 0.1
+  pizzaViewAngle: 60
+  PizzaIndicatorPrefab: {fileID: 0}
   AngerStep: 0
 --- !u!50 &3705978714310614446
 Rigidbody2D:
