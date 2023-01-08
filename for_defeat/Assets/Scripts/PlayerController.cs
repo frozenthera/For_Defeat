@@ -264,7 +264,7 @@ public class PlayerController : UnitBehaviour
 
     public void PlayerDie()
     {
-        //do something
+        GameManager.Instance.GameEnd("그렇게 세상의 평화는 지켜졌습니다");
     }
 
     public void UseAngergauge(float value)

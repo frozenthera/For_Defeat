@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class TrapObject : MonoBehaviour
 {
+    public float elapsedTime;
     public int trapHP;
     private void OnTriggerStay2D(Collider2D coll)
     {
@@ -16,16 +17,23 @@ public class TrapObject : MonoBehaviour
             }
             else
             {
+                elapsedTime = 2f;
                 Debug.Log("Trapped!");
+                GameManager.Instance.hero.isInTrap = true;
+                HB.transform.position = this.transform.position;
                 HB.UpdateState(HeroBehaviour.HeroState.Trapped, gameObject);
             }
         }
     }
 
+    private void Update()
+    {
+        elapsedTime -= Time.deltaTime;
+    }
+
     public void GetDamage(int damage)
     {
         trapHP -= damage;
-        Debug.Log(trapHP);
-        if(trapHP <= damage) Destroy(gameObject);
+        if(trapHP <= 0) Destroy(this.gameObject);
     }
 }
