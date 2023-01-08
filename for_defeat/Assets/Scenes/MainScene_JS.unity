@@ -757,6 +757,10 @@ PrefabInstance:
       value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 3705978714310614445, guid: 2e33a7b07b05b0b45aa6ed807e2118bc, type: 3}
+      propertyPath: playerErosion
+      value: 
+      objectReference: {fileID: 2063806423}
+    - target: {fileID: 3705978714310614445, guid: 2e33a7b07b05b0b45aa6ed807e2118bc, type: 3}
       propertyPath: meshResolution
       value: 0.1
       objectReference: {fileID: 0}
@@ -764,6 +768,10 @@ PrefabInstance:
       propertyPath: playerShockWave
       value: 
       objectReference: {fileID: 1688639147}
+    - target: {fileID: 3705978714310614445, guid: 2e33a7b07b05b0b45aa6ed807e2118bc, type: 3}
+      propertyPath: maxBerserkerTime
+      value: 20
+      objectReference: {fileID: 0}
     - target: {fileID: 3705978714310614445, guid: 2e33a7b07b05b0b45aa6ed807e2118bc, type: 3}
       propertyPath: RangeIndicatorPrefab
       value: 
@@ -4671,6 +4679,7 @@ MonoBehaviour:
   damage: 5
   knuckBackSpeed: 3
   knuckBackMultiplier: 1
+  KnuckBackMultiplier: 0
 --- !u!1 &1728231349
 GameObject:
   m_ObjectHideFlags: 0
@@ -5337,7 +5346,7 @@ MonoBehaviour:
   ErosionObject: {fileID: 5233675987532633607, guid: ba8f02e89bfcfc84d8e7f16531f5f78b, type: 3}
   DOTLastingTime: 3
   DOTDamagePerSec: 4
-  RadiusMultiplier: 1
+  radiusMultiplier: 1
   damage: 3
 --- !u!1 &2070917730
 GameObject:

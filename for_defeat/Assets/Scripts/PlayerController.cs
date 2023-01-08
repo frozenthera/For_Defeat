@@ -122,7 +122,9 @@ public class PlayerController : UnitBehaviour
     public int AngerStep;
     private float berserker_time = 0f;
     private HeroBehaviour hero;
-    [SerializeField] PlayerErosion playerErosion;
+    [SerializeField] private PlayerErosion playerErosion;
+    [SerializeField] private float maxBerserkerTime;
+    public bool IsBerserker = false;
 
     private void Awake()
     {
@@ -167,6 +169,11 @@ public class PlayerController : UnitBehaviour
     {
         KeyBoardInput();
         stateMachine.DoOperateUpdate();
+        if(curAngerGauge == maxAngerGauge)
+        {
+            IsBerserker = true;
+            StartCoroutine(Berserker());
+        }
     }
 
     public void UpdateState(EPlayerState type)
@@ -184,6 +191,7 @@ public class PlayerController : UnitBehaviour
     private void KeyBoardInput()
     {
         if(isInDelay) return;
+        if(IsBerserker) return;
         if(Input.GetKey(KeyCode.Q) && isQActive)
         {
             UpdateState(EPlayerState.Cast, EPlayerSkill.Erosion);
@@ -318,6 +326,9 @@ public class PlayerController : UnitBehaviour
         yield return new WaitUntil(()=> Input.GetMouseButtonDown(0) || Input.GetMouseButtonDown(1));
         if(Input.GetMouseButtonDown(0))
         {
+            RangeIndicator.transform.position = transform.position;
+            RangeIndicator.transform.parent = transform;
+            RangeIndicator.gameObject.SetActive(true);
             RangeIndicator.transform.localScale = Vector3.forward + new Vector3(1,1,0) * flashRadius * (((int)curAngerGauge/333)+1) * 10f;
             UpdateState(EPlayerState.Cast, EPlayerSkill.Flash);
         }
@@ -384,7 +395,8 @@ public class PlayerController : UnitBehaviour
 
     public IEnumerator Berserker()
     {
-        if(berserker_time<=20f)
+        berserker_time += Time.deltaTime;
+        if(berserker_time<=maxBerserkerTime)
         {
             if(!isInDelay)
             {
@@ -399,24 +411,39 @@ public class PlayerController : UnitBehaviour
                 }
                 else if((hero.transform.position - transform.position).magnitude <=  Mathf.Lerp(AngerStep+1, AngerStep, 1 / ((AngerStep+1) * this.viewRadius + 0.34f) * playerShockWave.KnuckBackMultiplier) && isEActive)
                 {
+                    indicator = Instantiate(ShockWaveIndicatorPrefab, this.transform.position, Quaternion.identity);
+                    indicator.transform.SetParent(this.transform);
+                    viewMesh = new Mesh();
+                    viewMesh.name = "View Mesh";
+            
+                    Vector3 _targetPosition = Vector3.right;        
+                    DrawFieldOfView(_targetPosition);
+
+                    indicator.transform.GetChild(0).GetComponent<MeshFilter>().mesh = viewMesh;
+
+                    UpdateState(EPlayerState.Cast, EPlayerSkill.ShockWave);
                     
                 }
                 else if(isFlashActive)
                 {
-                    var target_position = hero.transform.position;
-                    var dir = (target_position - transform.position).normalized;
+                    RangeIndicator.transform.position = transform.position;
+                    RangeIndicator.transform.parent = transform;
+                    RangeIndicator.gameObject.SetActive(true);
+                    RangeIndicator.transform.localScale = Vector3.forward + new Vector3(1,1,0) * flashRadius * (((int)curAngerGauge/333)+1) * 10f;
+                    UpdateState(EPlayerState.Cast, EPlayerSkill.Flash);
                 }
-                else if(isQActive)
+                else if(isRActive)
                 {
                     UpdateState(EPlayerState.Cast, EPlayerSkill.Trap);
                 }
-                yield return null;
             }
+            yield return null;
         }
         else
         {
             berserker_time = 0f;
             curAngerGauge = 0f;
+            IsBerserker = false;
             yield break;
         }
 

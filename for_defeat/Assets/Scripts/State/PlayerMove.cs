@@ -41,7 +41,10 @@ public class PlayerMove : IState
             }
         }
         accelatedSpeed += player.PlayerAccel * Time.deltaTime;
-        player.transform.position += accelatedSpeed * (targetPosition - player.transform.position).normalized * Time.deltaTime;
+        if(!player.IsBerserker)
+        {
+            player.transform.position += accelatedSpeed * (targetPosition - player.transform.position).normalized * Time.deltaTime;
+        }
 
         if((targetPosition-player.transform.position).magnitude < player.PlayerMoveError)
         {

@@ -28,6 +28,13 @@ public class PlayerPizza : PlayerSkill
             angle = _angle;
         }
     }
+    private PlayerController player;
+    private HeroBehaviour hero;
+    private void Start()
+    {
+        player = GameManager.Instance.player;
+        hero = GameManager.Instance.hero;
+    }
 
     public override IEnumerator _OnSkillActive()
     {
@@ -48,6 +55,10 @@ public class PlayerPizza : PlayerSkill
             Vector3 targetPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             targetPosition = (targetPosition-origin.transform.position);
             targetPosition = new Vector3(targetPosition.x, targetPosition.y, 0f);
+            if(player.IsBerserker)
+            {
+                targetPosition = new Vector3(hero.transform.position.x, hero.transform.position.y, 0f);    
+            }
             targetPosition.Normalize();
             DrawFieldOfView(targetPosition, SliceNum[AngerStep]);
             viewMeshFilter = go.GetComponent<MeshFilter>();
