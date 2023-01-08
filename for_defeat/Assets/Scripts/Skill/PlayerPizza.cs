@@ -14,8 +14,8 @@ public class PlayerPizza : PlayerSkill
     //damage per 0.5sec
     [SerializeField] private float DOTDamage;
     [SerializeField] private float DOTLastTime;
-    private GameObject indicator;
-
+    [SerializeField] private GameObject indicator;
+    private float _viewRadius;
     public struct ViewCastInfo
     {
         public bool hit;
@@ -31,28 +31,36 @@ public class PlayerPizza : PlayerSkill
             angle = _angle;
         }
     }
-    public void MakeIndicator()
+    private void Start()
     {
         indicator = Instantiate(PizzaIndicatorPrefab, origin.transform.position, Quaternion.identity, GameManager.Instance.player.transform);
+        GameManager.Instance.player.PizzaIndicator = indicator;
+        indicator.SetActive(false);
+    }
+
+    public void MakeIndicator()
+    {   
         viewMesh = new Mesh();
         int AngerStep = (int)(GameManager.Instance.player.CurAngerGauge / 333);
-        viewAngle = 30f;
-        viewRadius = (AngerStep+2) * viewRadius;
+        viewAngle = 60f;
+        _viewRadius = (AngerStep+2) * viewRadius;
         Vector3 _targetPosition = Vector3.right;
-        DrawFieldOfView(_targetPosition, 6);
+        DrawFieldOfView(_targetPosition, 3);
 
         indicator.transform.GetChild(0).GetComponent<MeshFilter>().mesh = viewMesh;
+        indicator.SetActive(true);
     }
 
     public override IEnumerator _OnSkillActive()
-    {       
+    {   
+        GameManager.Instance.player.PizzaIndicator.SetActive(false);
         GameObject go = Instantiate(PizzaObjectPrefab, origin.transform.position, Quaternion.identity);    
         
         Vector3 targetPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         targetPosition = (targetPosition-origin.transform.position);
         targetPosition = new Vector3(targetPosition.x, targetPosition.y, 0f);
         targetPosition.Normalize();
-        DrawFieldOfView(targetPosition, 6);
+        DrawFieldOfView(targetPosition, 3);
         viewMeshFilter = go.GetComponent<MeshFilter>();
         viewMeshFilter.mesh = viewMesh;
 
@@ -72,7 +80,7 @@ public class PlayerPizza : PlayerSkill
         PolygonCollider2D poly2d = go.GetComponent<PolygonCollider2D>();
         poly2d.points = vertices2d;
 
-        Destroy(indicator);
+        // Destroy(indicator);
         StartCoroutine(GameManager.Instance.player.EPizzaCD());
         yield return null;
     }
@@ -120,7 +128,7 @@ public class PlayerPizza : PlayerSkill
     ViewCastInfo ViewCast(Vector3 vec)
     {
         Vector3 dir = transform.TransformVector(vec).normalized;
-        return new ViewCastInfo(false, dir * viewRadius, viewRadius, 0f);
+        return new ViewCastInfo(false, dir * _viewRadius, _viewRadius, 0f);
     }
 
 }

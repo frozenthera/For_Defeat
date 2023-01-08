@@ -101,6 +101,8 @@ public class HeroBehaviour : UnitBehaviour
 
         StartCoroutine(ESlashCD());
         StartCoroutine(EDashCD());
+        StartCoroutine(EHealCD());
+        StartCoroutine(EImmuneCD());
 
         foreach(var skill in skillList) skill.origin = gameObject;
 
@@ -122,8 +124,7 @@ public class HeroBehaviour : UnitBehaviour
             heroSprite.flipX = true;
         }
 
-        if(isInDelay) return;
-        if(stateMachine.CurruentState != dicState[HeroState.KnuckBack])
+        if(isInDelay || stateMachine.CurruentState != dicState[HeroState.KnuckBack])
         {
             if((player.transform.position - transform.position).magnitude <= heroRecogRad)
             {
@@ -144,7 +145,7 @@ public class HeroBehaviour : UnitBehaviour
                 UpdateState(HeroState.Cast, heroSKill.Dash);
                 StartCoroutine(EDashCD());
             }
-            else if(isHealable && curHP <= healThreshold && (stateMachine.CurruentState != dicState[HeroState.Trapped]))
+            if(isHealable && curHP <= healThreshold && (stateMachine.CurruentState != dicState[HeroState.Trapped]))
             {
                 UpdateState(HeroState.Cast, heroSKill.Heal);
                 StartCoroutine(EHealCD());
@@ -267,5 +268,16 @@ public class HeroBehaviour : UnitBehaviour
             yield return null;
         }
         isImmunable = true;
+    }
+
+    private void OnTriggerStay2D(Collider2D coll)
+    {
+        if(coll.transform.CompareTag("Wall"))
+        {
+            if(isInKnuckBack) 
+            {
+                isInKnuckBack = false;
+            }
+        }
     }
 }

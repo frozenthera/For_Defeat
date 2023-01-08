@@ -32,7 +32,12 @@ public class SlashObject : MonoBehaviour
             PlayerController PC = coll.transform.GetComponent<PlayerController>();
             Debug.Log("damaged by slash");
             PC.GetDamage(damage, angerGaugeGain);
-            Destroy(this.gameObject);
+            Destroy(gameObject);
+        }
+
+        if(coll.transform.CompareTag("Wall"))
+        {
+            Destroy(gameObject);
         }
     }
     

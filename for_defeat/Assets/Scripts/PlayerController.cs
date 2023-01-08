@@ -106,9 +106,9 @@ public class PlayerController : UnitBehaviour
     public float meshResolution;
     [SerializeField] private float pizzaViewAngle;
     [SerializeField] private GameObject PizzaIndicatorPrefab;
-    private GameObject PizzaIndicator;
+    public GameObject PizzaIndicator;
     private Mesh pizzaViewMesh;
-
+    private int BAngerStack = 0;
     public struct ViewCastInfo
     {
         public bool hit;
@@ -169,6 +169,18 @@ public class PlayerController : UnitBehaviour
         KeyBoardInput();
         stateMachine.DoOperateUpdate();
     }
+
+    // private void SyncIndicatorRange()
+    // {
+    //     if(BAngerStack != curAngerGauge/333)
+    //     {
+    //         RangeIndicator
+    //         indicator
+    //         PizzaIndicator
+    //     }
+    //     BAngerStack = (int)(curAngerGauge/333) + 1;
+    // }
+
 
     public void UpdateState(EPlayerState type)
     {
@@ -349,14 +361,13 @@ public class PlayerController : UnitBehaviour
         yield return new WaitUntil(()=> Input.GetMouseButtonDown(0) || Input.GetMouseButtonDown(1));
         if(Input.GetMouseButtonDown(0))
         {
-            Destroy(PizzaIndicator);
             isWaitingPizza = false;
             UpdateState(EPlayerState.Cast, EPlayerSkill.Pizza);
         }
         else if(Input.GetMouseButtonDown(1))
         {
             isWaitingPizza = false;
-            Destroy(PizzaIndicator);
+            PizzaIndicator.SetActive(false);
         }
         yield return null;
     }

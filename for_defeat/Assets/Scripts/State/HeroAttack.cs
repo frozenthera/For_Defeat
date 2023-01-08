@@ -45,7 +45,7 @@ public class HeroAttack : IState
         float BDelay = hero.HeroNormalBDelay;
         while(BDelay >= 0)
         {
-            if(hero.isInKnuckBack) 
+            if(hero.isInKnuckBack)
             {
                 hero.isInDelay = false;
                 hero.heroAttackCircle.SetActive(false);        

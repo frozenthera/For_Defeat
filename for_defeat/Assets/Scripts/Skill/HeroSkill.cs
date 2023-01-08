@@ -37,7 +37,11 @@ public abstract class HeroSkill : MonoBehaviour
         float curBDelay = BDelay;
         while(curBDelay >= 0)
         {
-            if(!isContinuable) yield break;
+            if(GameManager.Instance.hero.isInKnuckBack) 
+            {
+                origin.GetComponent<UnitBehaviour>().isInDelay = false;
+                yield break;
+            }
             curBDelay -= Time.deltaTime;
             yield return null;
         }
@@ -49,7 +53,11 @@ public abstract class HeroSkill : MonoBehaviour
         float curADelay = ADelay;
         while(curADelay >= 0)
         {
-            if(!isContinuable) yield break;
+            if(GameManager.Instance.hero.isInKnuckBack)
+            {
+                origin.GetComponent<UnitBehaviour>().isInDelay = false;
+                yield break;
+            } 
             curADelay -= Time.deltaTime;
             yield return null;
         }

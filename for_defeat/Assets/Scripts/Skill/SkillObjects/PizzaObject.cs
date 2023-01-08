@@ -16,7 +16,11 @@ public class PizzaObject : MonoBehaviour
     {
         if(coll.transform.CompareTag("Hero"))
         {
-            if(curTime < 0) coll.transform.GetComponent<HeroBehaviour>().GetDamage(DOTDamge);
+            if(curTime < 0) 
+            {
+                coll.transform.GetComponent<HeroBehaviour>().GetDamage(DOTDamge);
+                curTime = .5f;
+            }
             curTime -= Time.deltaTime;
         }
     }

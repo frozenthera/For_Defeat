@@ -13,16 +13,15 @@ public class HeroHeal : HeroSkill
         Debug.Log("Heal Start");
         HealEffect.SetActive(true);
         HealEffect.transform.position = origin.transform.position;
-        HeroBehaviour HB = target.GetComponent<HeroBehaviour>();
         float leftHeal = totalHeal;
         while(leftHeal >= 0)
         {
-            if(!isContinuable)
+            if(GameManager.Instance.hero.isInKnuckBack)
             {
                 HealEffect.SetActive(false);        
                 yield break;
             } 
-            HB.GetHeal(healPerTick);
+            GameManager.Instance.hero.GetHeal(healPerTick);
             leftHeal -= healPerTick;
             yield return new WaitForSeconds(.5f);
         }
