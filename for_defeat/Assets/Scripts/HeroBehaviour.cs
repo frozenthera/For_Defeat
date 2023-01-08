@@ -124,7 +124,7 @@ public class HeroBehaviour : UnitBehaviour
             heroSprite.flipX = true;
         }
 
-        if(isInDelay || stateMachine.CurruentState != dicState[HeroState.KnuckBack])
+        if(!isInDelay && stateMachine.CurruentState != dicState[HeroState.KnuckBack])
         {
             if((player.transform.position - transform.position).magnitude <= heroRecogRad)
             {

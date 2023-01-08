@@ -5,7 +5,7 @@ using UnityEngine;
 public class TrapObject : MonoBehaviour
 {
     public int trapHP;
-    private void OnTriggerEnter2D(Collider2D coll)
+    private void OnTriggerStay2D(Collider2D coll)
     {
         if(coll.transform.CompareTag("Hero"))
         {

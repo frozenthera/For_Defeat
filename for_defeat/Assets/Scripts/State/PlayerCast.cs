@@ -15,11 +15,14 @@ public class PlayerCast : IState
     {
         player.playerAnim.SetBool("Attack", true);
         player.StartCoroutine(ECheckDone());
+        player.CastEffect.SetActive(true);
+        player.CastEffect.GetComponent<SpriteRenderer>().material.color = player.effectColor[skillIdx];
     }
 
     public void OperateExit()
     {
         player.playerAnim.SetBool("Attack", false);
+        player.CastEffect.SetActive(false);
     }
 
     public void OperateUpdate()

@@ -113,7 +113,8 @@ public class PlayerController : UnitBehaviour
     [SerializeField] private GameObject PizzaIndicatorPrefab;
     public GameObject PizzaIndicator;
     private Mesh pizzaViewMesh;
-    // private int BAngerStack = 0;
+    public GameObject CastEffect;
+    public List<Color> effectColor = new();
     public struct ViewCastInfo
     {
         public bool hit;
@@ -218,11 +219,11 @@ public class PlayerController : UnitBehaviour
     {
         if(isInDelay) return;
         if(IsBerserker) return;
-        if(Input.GetKey(KeyCode.Q) && isQActive)
+        if(Input.GetKeyDown(KeyCode.Q) && isQActive)
         {
             UpdateState(EPlayerState.Cast, EPlayerSkill.Erosion);
         }
-        else if(Input.GetKey(KeyCode.W) && isWActive && !isWaitingPizza)
+        else if(Input.GetKeyDown(KeyCode.W) && isWActive && !isWaitingPizza)
         {   
             skillList[(int)EPlayerSkill.Pizza].GetComponent<PlayerPizza>().MakeIndicator();
             StartCoroutine(PizzaWaiting());
@@ -240,7 +241,7 @@ public class PlayerController : UnitBehaviour
             indicator.transform.GetChild(0).GetComponent<MeshFilter>().mesh = viewMesh;
             StartCoroutine(ShockWaveWaiting());
         }
-        else if(Input.GetKey(KeyCode.R) && isRActive)
+        else if(Input.GetKeyDown(KeyCode.R) && isRActive)
         {
             UpdateState(EPlayerState.Cast, EPlayerSkill.Trap);
         }

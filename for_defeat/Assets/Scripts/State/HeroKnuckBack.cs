@@ -23,6 +23,7 @@ public class HeroKnuckBack : IState
     public void OperateExit()
     {
         hero.isInKnuckBack = false;
+        hero.isInDelay = false;
     }
     public void OperateUpdate()
     {

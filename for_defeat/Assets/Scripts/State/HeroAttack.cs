@@ -14,12 +14,13 @@ public class HeroAttack : IState
     public void OperateEnter()
     {
         Debug.Log("AttackEnter");
+        hero.heroAnim.SetBool("isAttack", true);
         GameManager.Instance.StartCoroutine(EAttackBDelay());
     }
 
     public void OperateExit()
     {
-
+        hero.heroAnim.SetBool("isAttack", false);   
     }
     public void OperateUpdate()
     {
