@@ -1,0 +1,36 @@
+[33ma0c5b8f[m[33m ([m[1;36mHEAD[m[33m, [m[1;31morigin/DM[m[33m)[m HEAD@{0}: pull origin DM (start): checkout a0c5b8fd2887f54d05a507f317c4e0b91bfd2c41
+[33m644e755[m[33m ([m[1;31morigin/moving_player[m[33m, [m[1;32mmoving_player[m[33m)[m HEAD@{1}: commit: berserker
+[33mae9acd6[m HEAD@{2}: commit: berserker
+[33m670926b[m HEAD@{3}: pull origin DM: Fast-forward
+[33m041fe2a[m HEAD@{4}: commit: modify flash range
+[33mca3b3ce[m HEAD@{5}: pull origin DM: Fast-forward
+[33m7d13fbc[m HEAD@{6}: commit: skill while moving
+[33m425c43e[m HEAD@{7}: commit: modify flash
+[33m8166473[m HEAD@{8}: commit: modify double attack bug
+[33m322f342[m HEAD@{9}: pull origin DM: Fast-forward
+[33m4a69e73[m HEAD@{10}: commit: trap bug
+[33m21e9370[m HEAD@{11}: pull origin DM: Fast-forward
+[33m2d380a6[m HEAD@{12}: commit: add sprite turn
+[33mb2c96d5[m HEAD@{13}: pull origin DM: Fast-forward
+[33m16bc5d3[m[33m ([m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m HEAD@{14}: pull origin main: Fast-forward
+[33m49cd53c[m HEAD@{15}: commit: modify ui
+[33m0f02841[m HEAD@{16}: pull origin DM: Fast-forward
+[33m5c83eb1[m HEAD@{17}: commit: .
+[33m0762b1a[m HEAD@{18}: commit: .
+[33mbe396bc[m HEAD@{19}: pull origin DM: Fast-forward
+[33ma7a755f[m HEAD@{20}: pull origin main: Fast-forward
+[33m3b4c284[m HEAD@{21}: commit: add HP bar
+[33m25cbbef[m HEAD@{22}: pull origin main: Fast-forward
+[33m01eee2e[m HEAD@{23}: checkout: moving from main to moving_player
+[33m78e680e[m[33m ([m[1;32mmain[m[33m)[m HEAD@{24}: commit: add skillobject moving
+[33mb2d961a[m HEAD@{25}: pull origin main: Fast-forward
+[33m2dd3676[m HEAD@{26}: pull origin main: Fast-forward
+[33m41063ec[m HEAD@{27}: commit: modify player moving
+[33m1df1d70[m HEAD@{28}: pull origin DM: Fast-forward
+[33m860e877[m HEAD@{29}: pull origin main: Fast-forward
+[33m866f7f2[m HEAD@{30}: checkout: moving from moving_player to main
+[33m01eee2e[m HEAD@{31}: commit: add player moving
+[33m866f7f2[m HEAD@{32}: checkout: moving from main to moving_player
+[33m866f7f2[m HEAD@{33}: checkout: moving from moving_player to main
+[33m866f7f2[m HEAD@{34}: checkout: moving from main to moving_player
+[33m866f7f2[m HEAD@{35}: clone: from github.com:frozenthera/For_Defeat.git
