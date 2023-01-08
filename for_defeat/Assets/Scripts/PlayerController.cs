@@ -174,35 +174,33 @@ public class PlayerController : UnitBehaviour
         RangeIndicator.gameObject.SetActive(false);
 
         hero = GameManager.Instance.hero;
+        viewMesh = new Mesh();
     }
 
     private void Update()
     {
         if(curAngerGauge == maxAngerGauge)
         {
+            IsBerserker = true;
             Berserker();
-            stateMachine.DoOperateUpdate();
         }
         else
         {
+            if(IsBerserker) CoolDownReset();
+            IsBerserker = false;
             KeyBoardInput();
-            stateMachine.DoOperateUpdate();
         }
-        
-
+        stateMachine.DoOperateUpdate();
     }
 
-    // private void SyncIndicatorRange()
-    // {
-    //     if(BAngerStack != curAngerGauge/333)
-    //     {
-    //         RangeIndicator
-    //         indicator
-    //         PizzaIndicator
-    //     }
-    //     BAngerStack = (int)(curAngerGauge/333) + 1;
-    // }
-
+    public void CoolDownReset()
+    {
+        curQCoolDown = 0f;
+        curWCoolDown = 0f;
+        curECoolDown = 0f;
+        curRCoolDown = 0f;
+        curFlashCoolDown = 0f;
+    }
 
     public void UpdateState(EPlayerState type)
     {
@@ -276,6 +274,7 @@ public class PlayerController : UnitBehaviour
 
     public void GainAngergauge(float value)
     {
+        Debug.Log("Get AngerGauge of " + value);
         curAngerGauge += value;
         if(curAngerGauge > maxAngerGauge) curAngerGauge = maxAngerGauge;
     }
@@ -374,6 +373,7 @@ public class PlayerController : UnitBehaviour
         if(Input.GetMouseButtonDown(0))
         {
             UpdateState(EPlayerState.Cast, EPlayerSkill.ShockWave);
+            Destroy(indicator);
         }
         else if(Input.GetMouseButtonDown(1))
         {

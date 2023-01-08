@@ -31,6 +31,7 @@ public class PlayerShockWave : PlayerSkill
     {
         player = GameManager.Instance.player;
         viewRadius = player.viewRadius;
+        hero = GameManager.Instance.hero;
     }
     public override IEnumerator _OnSkillActive()
     {
@@ -67,8 +68,6 @@ public class PlayerShockWave : PlayerSkill
         }
         PolygonCollider2D poly2d = go.GetComponent<PolygonCollider2D>();
         poly2d.points = vertices2d;
-
-        Destroy(player.indicator);
 
         StartCoroutine(GameManager.Instance.player.EShockWaveCD());
         yield return null;

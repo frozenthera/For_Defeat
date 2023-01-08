@@ -425,8 +425,8 @@ MonoBehaviour:
   skilldamage: 0
   origin: {fileID: 0}
   target: {fileID: 0}
-  BDelay: 0.5
-  ADelay: 0.5
+  BDelay: 0.2
+  ADelay: 0.1
   isContinuable: 1
 --- !u!1 &184816138
 GameObject:
@@ -696,6 +696,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3705978714310614445, guid: 2e33a7b07b05b0b45aa6ed807e2118bc, type: 3}
+      propertyPath: playerErosion
+      value: 
+      objectReference: {fileID: 2021970453}
+    - target: {fileID: 3705978714310614445, guid: 2e33a7b07b05b0b45aa6ed807e2118bc, type: 3}
       propertyPath: meshResolution
       value: 0.1
       objectReference: {fileID: 0}
@@ -705,7 +709,7 @@ PrefabInstance:
       objectReference: {fileID: 1900270701}
     - target: {fileID: 3705978714310614445, guid: 2e33a7b07b05b0b45aa6ed807e2118bc, type: 3}
       propertyPath: maxBerserkerTime
-      value: 10
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 3705978714310614445, guid: 2e33a7b07b05b0b45aa6ed807e2118bc, type: 3}
       propertyPath: PizzaIndicatorPrefab
@@ -916,8 +920,8 @@ MonoBehaviour:
   BDelay: 0
   ADelay: 0
   isContinuable: 1
-  buffTime: 2
-  speedBuffPercent: 0
+  buffTime: 6
+  speedBuffPercent: 0.5
 --- !u!1 &286492124
 GameObject:
   m_ObjectHideFlags: 0
@@ -1100,12 +1104,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ee260164ca552941b5e48bd96268e4f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  angerGaugeUsage: 0
+  angerGaugeUsage: 25
   skilldamage: 0
   origin: {fileID: 0}
   target: {fileID: 0}
-  BDelay: 0
-  ADelay: 0
+  BDelay: 0.2
+  ADelay: 0.1
   isContinuable: 1
   TrapObjectPrefab: {fileID: 5397328555899813401, guid: 8e32038be3f7616468ee4912d8c0bad3, type: 3}
 --- !u!1 &429897467
@@ -5063,16 +5067,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e1fd0354ca77af4ca64a0a1c7ff8c69, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  angerGaugeUsage: 0
+  angerGaugeUsage: 25
   skilldamage: 0
   origin: {fileID: 0}
   target: {fileID: 0}
-  BDelay: 0
-  ADelay: 0
+  BDelay: 0.2
+  ADelay: 0.1
   isContinuable: 1
   damage: 5
   knuckBackSpeed: 3
-  knuckBackMultiplier: 1
+  knuckBackMultiplier: 1.5
   RadiusMultiplier: 0
 --- !u!1 &1949767303
 GameObject:
@@ -5446,6 +5450,7 @@ RectTransform:
   - {fileID: 1300202518}
   - {fileID: 286492125}
   - {fileID: 1949767304}
+  - {fileID: 2016897245}
   m_Father: {fileID: 0}
   m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -5552,6 +5557,82 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2015817587}
   m_CullTransparentMesh: 1
+--- !u!1 &2016897244
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2016897245}
+  - component: {fileID: 2016897247}
+  - component: {fileID: 2016897246}
+  m_Layer: 5
+  m_Name: Panel
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &2016897245
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2016897244}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: -6}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2003739262}
+  m_RootOrder: 8
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &2016897246
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2016897244}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.392}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
+  m_Type: 1
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &2016897247
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2016897244}
+  m_CullTransparentMesh: 1
 --- !u!1 &2021970451
 GameObject:
   m_ObjectHideFlags: 0
@@ -5596,16 +5677,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4dfe32485cf6deb4a9ba69aa824f7db4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  angerGaugeUsage: 0
-  skilldamage: 0
+  angerGaugeUsage: 50
+  skilldamage: 50
   origin: {fileID: 0}
   target: {fileID: 0}
-  BDelay: 0
-  ADelay: 0.5
+  BDelay: 0.2
+  ADelay: 0.1
   isContinuable: 1
   ErosionObjectPrefab: {fileID: 5233675987532633607, guid: ba8f02e89bfcfc84d8e7f16531f5f78b, type: 3}
-  RadiusMultiplier: 0.3
-  damage: 10
+  RadiusMultiplier: 1.2
+  damage: 50
   fadeOutTime: 1
 --- !u!1 &2063307953
 GameObject:
@@ -5706,17 +5787,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a65d67d978c81149b2de39e5442ddd6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  angerGaugeUsage: 0
-  skilldamage: 10
+  angerGaugeUsage: 50
+  skilldamage: 50
   origin: {fileID: 0}
   target: {fileID: 0}
-  BDelay: 0.5
-  ADelay: 0.5
+  BDelay: 0.2
+  ADelay: 0.1
   isContinuable: 1
   PizzaObjectPrefab: {fileID: 988865814613561557, guid: f0c74e059a614bb4e8b48a3222032286, type: 3}
   PizzaIndicatorPrefab: {fileID: 4720300408422774596, guid: 3995f7a9dd96ce741b30449f2f851968, type: 3}
   viewMeshFilter: {fileID: 0}
-  viewRadius: 2
-  DOTDamage: 10
-  DOTLastTime: 2
+  viewRadius: 1.8
+  DOTDamage: 25
+  DOTLastTime: 1
   indicator: {fileID: 0}

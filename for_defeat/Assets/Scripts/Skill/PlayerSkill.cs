@@ -20,7 +20,7 @@ public abstract class PlayerSkill : MonoBehaviour
     {
         if(GameManager.Instance.player.CurAngerGauge < angerGaugeUsage) yield break;
         yield return StartCoroutine(EBDelay());
-        GameManager.Instance.player.UseAngergauge(angerGaugeUsage);
+        if(!GameManager.Instance.player.IsBerserker) GameManager.Instance.player.UseAngergauge(angerGaugeUsage);
         yield return StartCoroutine(_OnSkillActive());
         yield return StartCoroutine(EADelay());
         StartCoroutine(GameManager.Instance.player.ECoolDownDic[(PlayerController.EPlayerSkill)skillIdx]);
